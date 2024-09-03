@@ -1,4 +1,4 @@
-const useStyle = (fonScrin: string) => ({
+const useStyle = (BORD_SCRIN: string) => ({
   asteroidData: {
     backgroundColor: "#000",
   },
@@ -6,7 +6,7 @@ const useStyle = (fonScrin: string) => ({
   asteroidDataContent: {
     height: "100vh",
     width: "100vw",
-    backgroundImage: `url(${fonScrin})`,
+    backgroundImage: `url(${BORD_SCRIN})`,
   },
 
   wrapperContent: {

@@ -1,8 +1,6 @@
-import { IAsteroid } from "../../interfases";
-
-interface ITableCustomProps {
+interface ITableCustomProps<T> {
   title?: string;
-  listAsteroids: IAsteroid[];
+  listData: T[];
   listTableHeader: string[];
 }
 

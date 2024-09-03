@@ -12,9 +12,9 @@ import {
 import ITableCustomProps from "./interface";
 import { useStyle } from "./style";
 
-const TableCustom: React.FC<ITableCustomProps> = ({
+const TableCustom: React.FC<ITableCustomProps<any>> = ({
   title,
-  listAsteroids,
+  listData,
   listTableHeader,
 }) => {
   const styles = useStyle();
@@ -32,17 +32,13 @@ const TableCustom: React.FC<ITableCustomProps> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {listAsteroids.map((asteroid) => (
-              <TableRow key={asteroid.id} sx={styles.tableRow}>
-                <TableCell component="th" scope="row">
-                  {asteroid.id}
-                </TableCell>
-                <TableCell scope="row">{asteroid.name}</TableCell>
-                <TableCell component="th">{asteroid.name_limited}</TableCell>
-                <TableCell component="th">
-                  {asteroid.absolute_magnitude_h}
-                </TableCell>
-                <TableCell component="th">{asteroid.designation}</TableCell>
+            {listData.map((data) => (
+              <TableRow key={data.id} sx={styles.tableRow}>
+                {Object.keys(data).map((property: string) => (
+                  <TableCell component="th" scope="row">
+                    {data[`${property}`]}
+                  </TableCell>
+                ))}
               </TableRow>
             ))}
           </TableBody>
