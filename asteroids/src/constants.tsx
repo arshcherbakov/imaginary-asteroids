@@ -1,5 +1,5 @@
 export enum ROUTES_LIST {
-  home = "/home",
+  asteroids = "/asteroids",
 }
 
 export const TITLE_TABLE_ASTEROIDS = [
