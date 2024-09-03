@@ -1,17 +1,22 @@
-const useStyle = (BORD_SCRIN: string) => ({
-  asteroidData: {
-    backgroundColor: "#000",
-  },
+import { Box, Container } from "@mui/material";
+import styled from "styled-components";
+import BORD_SCRIN from "../../../assets/img/stars.jpg";
 
-  asteroidDataContent: {
-    height: "100vh",
-    width: "100vw",
-    backgroundImage: `url(${BORD_SCRIN})`,
-  },
+const StyledAsteroidData = styled(Box)(() => ({
+  backgroundColor: "#000",
+}));
 
-  wrapperContent: {
-    paddingTop: "40px",
-  },
-});
+const StyledBox = styled(Box)(() => ({
+  background: `url(${BORD_SCRIN})`,
+  height: "100vh",
+}));
 
-export { useStyle };
+const StyledWrapperContent = styled(Container)(() => ({
+  flexGrow: 1,
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  paddingTop: "40px",
+}));
+
+export { StyledAsteroidData, StyledBox, StyledWrapperContent };

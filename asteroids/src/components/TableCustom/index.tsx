@@ -1,29 +1,25 @@
 import {
-  Table,
   Box,
   TableBody,
   TableCell,
-  TableContainer,
   TableHead,
   TableRow,
   Paper,
   Typography,
 } from "@mui/material";
 import ITableCustomProps from "./interface";
-import { useStyle } from "./style";
+import { StyledAsteroidData, StyledTable, StyledTableRow } from "./style";
 
 const TableCustom: React.FC<ITableCustomProps<any>> = ({
   title,
   listData,
   listTableHeader,
-}) => {
-  const styles = useStyle();
-
-  return (
-    <Box>
-      <Typography>{title}</Typography>
-      <TableContainer component={Paper} sx={styles.tableContainer}>
-        <Table sx={styles.table} aria-label="simple table">
+}) => (
+  <Box>
+    <Typography>{title}</Typography>
+    <Paper>
+      <StyledAsteroidData>
+        <StyledTable aria-label="simple table">
           <TableHead>
             <TableRow>
               {listTableHeader.map((title, index) => (
@@ -33,19 +29,19 @@ const TableCustom: React.FC<ITableCustomProps<any>> = ({
           </TableHead>
           <TableBody>
             {listData.map((data) => (
-              <TableRow key={data.id} sx={styles.tableRow}>
+              <StyledTableRow key={data.id}>
                 {Object.keys(data).map((property: string) => (
                   <TableCell component="th" scope="row">
-                    {data[`${property}`]}
+                    {data[property]}
                   </TableCell>
                 ))}
-              </TableRow>
+              </StyledTableRow>
             ))}
           </TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
-  );
-};
+        </StyledTable>
+      </StyledAsteroidData>
+    </Paper>
+  </Box>
+);
 
 export default TableCustom;
