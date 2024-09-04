@@ -1,59 +1,63 @@
-const useStyle = () => ({
-  navbarWrapper: {},
+import {
+  AppBar,
+  Box,
+  IconButton,
+  Toolbar,
+  Button,
+  Avatar,
+} from "@mui/material";
+import styled from "styled-components";
 
-  appBar: {
-    backgroundColor: "#000",
-    height: "86px",
-    justifyContent: "center",
+const StyledAppBar = styled(AppBar)(() => ({
+  backgroundColor: "transparent !important",
+  height: 100,
+  justifyContent: "center",
+}));
+
+const StyledIconButton = styled(IconButton)(() => ({
+  display: "none !important",
+
+  "@media (max-width: 670px)": {
+    display: "block !important",
   },
+}));
 
-  toolbar: {
-    justifyContent: "space-between",
+const StyledMenuItem = styled(Button)(() => ({
+  color: "#fff !important",
+}));
+
+const StyledLogoText = styled(Box)(() => ({
+  flexGrow: 1,
+  display: "none",
+
+  "@media (min-width: 670px)": {
+    display: "block",
   },
+}));
 
-  logoWrapper: {
-    alignItems: "center",
+const StyledLogoNasa = styled(Avatar)(() => ({
+  width: "60px  !important",
+  height: "60px  !important",
+}));
+
+const StyledToolbar = styled(Toolbar)(() => ({
+  justifyContent: "space-between",
+}));
+
+const StyledWrapperMenuItem = styled(Box)(() => ({
+  display: "none",
+
+  "@media (min-width: 670px)": {
+    display: "block",
   },
+}));
 
-  logoNasa: {
-    width: "60px",
-    height: "60px",
-  },
-
-  mobileDrawer: {
-    display: { xs: "block", sm: "none" },
-    "& .MuiDrawer-paper": {
-      boxSizing: "border-box",
-      width: 240,
-    },
-  },
-
-  mobileMenuCenter: {
-    textAlign: "center",
-  },
-
-  menuWrapper: {
-    display: { xs: "none", sm: "block" },
-  },
-
-  menuItem: {
-    color: "#fff",
-  },
-
-  logoText: {
-    flexGrow: 1,
-    display: { xs: "none", sm: "block" },
-  },
-
-  logoButton: {
-    p: 0,
-    height: "60px",
-  },
-
-  iconButton: {
-    mr: 2,
-    display: { sm: "none" },
-  },
-});
-
-export { useStyle };
+export {
+  StyledAppBar,
+  StyledIconButton,
+  StyledMenuItem,
+  StyledLogoText,
+  StyledLogoNasa,
+  StyledToolbar,
+  StyledWrapperMenuItem,
+};

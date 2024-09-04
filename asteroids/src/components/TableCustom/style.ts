@@ -1,9 +1,8 @@
-import { Table, TableContainer, TableRow } from "@mui/material";
+import { Table, TableContainer, TableRow, TableCell } from "@mui/material";
 import styled from "styled-components";
 
 const StyledAsteroidData = styled(TableContainer)(() => ({
   backgroundColor: "#1c1c1c",
-  // bgcolor: "#1c1c1c",
 }));
 
 const StyledTable = styled(Table)(() => ({
@@ -14,4 +13,8 @@ const StyledTableRow = styled(TableRow)(() => ({
   "&:last-child td, &:last-child th": { border: 0 },
 }));
 
-export { StyledAsteroidData, StyledTable, StyledTableRow };
+const StyledTableCell = styled(TableCell)(() => ({
+  color: "#ffffff !important",
+}));
+
+export { StyledAsteroidData, StyledTable, StyledTableRow, StyledTableCell };

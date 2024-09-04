@@ -1,14 +1,18 @@
 import {
   Box,
   TableBody,
-  TableCell,
   TableHead,
   TableRow,
   Paper,
   Typography,
 } from "@mui/material";
 import ITableCustomProps from "./interface";
-import { StyledAsteroidData, StyledTable, StyledTableRow } from "./style";
+import {
+  StyledAsteroidData,
+  StyledTable,
+  StyledTableRow,
+  StyledTableCell,
+} from "./style";
 
 const TableCustom: React.FC<ITableCustomProps<any>> = ({
   title,
@@ -23,9 +27,7 @@ const TableCustom: React.FC<ITableCustomProps<any>> = ({
           <TableHead>
             <TableRow>
               {listTableHeader.map((title, index) => (
-                <TableCell key={index} sx={{ color: "white" }}>
-                  {title}
-                </TableCell>
+                <StyledTableCell key={index}>{title}</StyledTableCell>
               ))}
             </TableRow>
           </TableHead>
@@ -33,14 +35,9 @@ const TableCustom: React.FC<ITableCustomProps<any>> = ({
             {listData.map((data) => (
               <StyledTableRow key={data.id}>
                 {Object.keys(data).map((property: string, index) => (
-                  <TableCell
-                    key={index}
-                    component="th"
-                    scope="row"
-                    sx={{ color: "white" }}
-                  >
+                  <StyledTableCell key={index} component="th" scope="row">
                     {data[property]}
-                  </TableCell>
+                  </StyledTableCell>
                 ))}
               </StyledTableRow>
             ))}
