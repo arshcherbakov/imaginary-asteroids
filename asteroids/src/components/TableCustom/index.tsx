@@ -23,15 +23,22 @@ const TableCustom: React.FC<ITableCustomProps<any>> = ({
           <TableHead>
             <TableRow>
               {listTableHeader.map((title, index) => (
-                <TableCell key={index}>{title}</TableCell>
+                <TableCell key={index} sx={{ color: "white" }}>
+                  {title}
+                </TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {listData.map((data) => (
               <StyledTableRow key={data.id}>
-                {Object.keys(data).map((property: string) => (
-                  <TableCell component="th" scope="row">
+                {Object.keys(data).map((property: string, index) => (
+                  <TableCell
+                    key={index}
+                    component="th"
+                    scope="row"
+                    sx={{ color: "white" }}
+                  >
                     {data[property]}
                   </TableCell>
                 ))}

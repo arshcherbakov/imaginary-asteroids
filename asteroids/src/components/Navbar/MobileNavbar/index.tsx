@@ -11,6 +11,23 @@ import {
 import { NAVIGATE_TITLES } from "../../../constants";
 import IMobileNavbar from "./interface";
 import { useStyle } from "../style";
+import styled from "styled-components";
+
+const StyledMobileNavbar = styled(Drawer)(({ theme }) => ({
+  display: `${{ xs: "block", sm: "none" }}`,
+  "& .MuiDrawer-paper": {
+    boxSizing: "border-box",
+    width: "240px",
+  },
+}));
+
+const StyledMobileMenuCenter = styled(Box)(() => ({
+  textAlign: "center",
+}));
+
+const StyledMobileListCenter = styled(ListItemButton)(() => ({
+  textAlign: "center",
+}));
 
 const MobileNavbar: React.FC<IMobileNavbar> = ({
   container,
@@ -21,7 +38,7 @@ const MobileNavbar: React.FC<IMobileNavbar> = ({
 
   return (
     <nav>
-      <Drawer
+      <StyledMobileNavbar
         container={container}
         variant="temporary"
         open={mobileOpen}
@@ -29,9 +46,8 @@ const MobileNavbar: React.FC<IMobileNavbar> = ({
         ModalProps={{
           keepMounted: true,
         }}
-        sx={styles.mobileDrawer}
       >
-        <Box onClick={handleDrawerToggle} sx={styles.mobileMenuCenter}>
+        <StyledMobileMenuCenter onClick={handleDrawerToggle}>
           <Typography variant="h6" sx={{ my: 2 }}>
             NASA
           </Typography>
@@ -39,14 +55,14 @@ const MobileNavbar: React.FC<IMobileNavbar> = ({
           <List>
             {NAVIGATE_TITLES.map((menuItem) => (
               <ListItem key={menuItem.id} disablePadding>
-                <ListItemButton sx={styles.mobileMenuCenter}>
+                <StyledMobileListCenter>
                   <ListItemText primary={menuItem.title} />
-                </ListItemButton>
+                </StyledMobileListCenter>
               </ListItem>
             ))}
           </List>
-        </Box>
-      </Drawer>
+        </StyledMobileMenuCenter>
+      </StyledMobileNavbar>
     </nav>
   );
 };
