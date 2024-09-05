@@ -5,6 +5,7 @@ import {
   Toolbar,
   Button,
   Avatar,
+  Typography,
 } from "@mui/material";
 import styled from "styled-components";
 
@@ -33,15 +34,20 @@ const StyledIconButton = styled(IconButton)(() => ({
 }));
 
 const StyledMenuItem = styled(Button)(() => ({
-  "&.MuiButton-root.MuiButton-colorPrimary": {
-    color: "#fff",
+  // color: "#ffffff !impo",
+  "&.MuiButton-root": {
+    // color: "#fcfcfc",
+    // // color: "#fff",
+    // color: "var(--variant-textColor)",
+    // "--variant-textColor": "none",
+    // color: "#000",
   },
 }));
 
-const StyledLogoText = styled(Box)(() => ({
+const StyledLogoText = styled(Typography)(() => ({
   flexGrow: 1,
   display: "none",
-
+  // color: "#000",
   "@media (min-width: 670px)": {
     display: "block",
   },
