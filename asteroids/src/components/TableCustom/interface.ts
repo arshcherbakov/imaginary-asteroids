@@ -1,7 +1,7 @@
 interface ITableCustomProps<T> {
-  title?: string;
+  titleTable?: string;
   listData: T[];
-  listTableHeader: string[];
+  listTableHeader: (keyof T)[];
 }
 
 export default ITableCustomProps;

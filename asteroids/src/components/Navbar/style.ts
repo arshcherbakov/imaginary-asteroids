@@ -11,10 +11,12 @@ import styled from "styled-components";
 const StyledAppBar = styled(AppBar)(() => ({
   height: 100,
   justifyContent: "center",
-
+  // background: "#ffffff",
   "&.MuiAppBar-root.MuiAppBar-colorPrimary": {
-    backgroundColor: "transparent",
     "--Paper-overlay": "none !important",
+    "--Paper-shadow": "none !important",
+    "--AppBar-background": "#ffffff",
+    // background: "#000",
   },
 }));
 

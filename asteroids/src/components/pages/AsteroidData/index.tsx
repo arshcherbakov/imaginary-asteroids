@@ -13,7 +13,7 @@ const AsteroidData: React.FC = () => {
       <StyledBox theme={theme}>
         <StyledWrapperContent maxWidth="xl">
           <TableCustom
-            title="Asteroid data"
+            titleTable="Asteroid data"
             listTableHeader={TITLE_TABLE_ASTEROIDS}
             listData={LIST_ASTEROIDS}
           />

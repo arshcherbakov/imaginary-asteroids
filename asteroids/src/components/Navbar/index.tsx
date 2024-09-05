@@ -41,7 +41,14 @@ const Navbar: React.FC = (props: INavbarProps) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Container maxWidth="xl">
+    <Container
+      maxWidth="xl"
+      sx={
+        {
+          // background: "#000",
+        }
+      }
+    >
       <CssBaseline />
       <StyledAppBar position="static">
         <StyledToolbar>
