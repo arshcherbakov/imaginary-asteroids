@@ -5,18 +5,22 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import ChangeThemeButton from "../../UI/ChangeThemeButton";
 import { NAVIGATE_TITLES } from "../../../constants";
 import IMobileNavbar from "./interface";
 import {
   StyledMobileNavbar,
   StyledMobileMenuCenter,
   StyledMobileListCenter,
+  StyledMobileMenuHeader,
 } from "./style";
 
 const MobileNavbar: React.FC<IMobileNavbar> = ({
   container,
   mobileOpen,
   handleDrawerToggle,
+  checked,
+  handlerSwitch,
 }) => (
   <nav>
     <StyledMobileNavbar
@@ -29,9 +33,12 @@ const MobileNavbar: React.FC<IMobileNavbar> = ({
       }}
     >
       <StyledMobileMenuCenter onClick={handleDrawerToggle}>
-        <Typography variant="h6" sx={{ my: 2 }}>
-          NASA
-        </Typography>
+        <StyledMobileMenuHeader>
+          <Typography variant="h6" sx={{ my: 2 }}>
+            NASA
+          </Typography>
+          <ChangeThemeButton checked={checked} handlerSwitch={handlerSwitch} />
+        </StyledMobileMenuHeader>
         <Divider />
         <List>
           {NAVIGATE_TITLES.map((menuItem) => (

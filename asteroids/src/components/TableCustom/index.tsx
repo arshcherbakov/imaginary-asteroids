@@ -34,7 +34,7 @@ const TableCustom: React.FC<ITableCustomProps<any>> = ({
           <TableBody>
             {listData.map((data) => (
               <StyledTableRow key={data.id}>
-                {Object.keys(data).map((property: string, index) => (
+                {Object.keys(data).map((property: string, index: number) => (
                   <StyledTableCell key={index} component="th" scope="row">
                     {data[property]}
                   </StyledTableCell>

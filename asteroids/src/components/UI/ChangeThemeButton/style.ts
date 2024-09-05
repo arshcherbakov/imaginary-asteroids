@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import styled from "styled-components";
-import Nasa from "../../../assets/img/sh.jpg";
-import Dart from "../../../assets/img/dart.jpg";
+import Stormtroopers from "../../../assets/img/Stormtroopers.jpg";
+import DarthVader from "../../../assets/img/darth-vader.jpg";
 
 const StyledChangeThemeButton = styled("label")(() => ({
   position: "relative",
@@ -36,7 +36,7 @@ const StyledSlider = styled(Box)<{ checked?: boolean }>(({ checked }) => ({
     margin: "auto 0",
     transition: "0.4s",
     boxShadow: "0 0px 15px #2020203d",
-    background: `white url(${Nasa}) no-repeat center`,
+    background: `white url(${Stormtroopers}) no-repeat center`,
     backgroundSize: "contain",
   },
   "&.round": {
@@ -59,7 +59,7 @@ const StyledSlider = styled(Box)<{ checked?: boolean }>(({ checked }) => ({
       transition: "0.4s",
       boxShadow: "0 0px 15px #2020203d",
       transform: "translateX(24px)",
-      background: `url(${Dart}) no-repeat center`,
+      background: `url(${DarthVader}) no-repeat center`,
       backgroundSize: "contain",
     },
   }),

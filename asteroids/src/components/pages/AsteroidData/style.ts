@@ -6,8 +6,8 @@ const StyledAsteroidData = styled(Box)(() => ({
   backgroundColor: "#000",
 }));
 
-const StyledBox = styled(Box)(() => ({
-  background: `url(${BORD_SCRIN})`,
+const StyledBox = styled(Box)(({ theme }) => ({
+  background: theme.palette.mode === "dark" ? `url(${BORD_SCRIN})` : "#ffffff",
   height: "100vh",
 }));
 

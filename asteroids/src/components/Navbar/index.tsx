@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Box, CssBaseline, IconButton, Button, Container } from "@mui/material";
+import { Box, CssBaseline, IconButton, Container } from "@mui/material";
+import { useColorScheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import MobileNavbar from "./MobileNavbar";
-import ChangeThemeButton from "../UI/ ChangeThemeButton";
+import ChangeThemeButton from "../UI/ChangeThemeButton";
 import { NAVIGATE_TITLES, LOGO_NASA } from "../../constants";
 import Nasa from "../../assets/img/nasa-logo.svg";
 import {
@@ -23,6 +24,14 @@ const Navbar: React.FC = (props: INavbarProps) => {
   const { window } = props;
 
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const [checked, setChecked] = useState<boolean>(false);
+  const { setMode } = useColorScheme();
+
+  const toggleTheme = () => {
+    setMode(checked ? "light" : "dark");
+    setChecked(!checked);
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -49,9 +58,7 @@ const Navbar: React.FC = (props: INavbarProps) => {
                 {menuItem.title}
               </StyledMenuItem>
             ))}
-            <Button>
-              <ChangeThemeButton />
-            </Button>
+            <ChangeThemeButton checked={checked} handlerSwitch={toggleTheme} />
           </StyledWrapperMenuItem>
           <StyledIconButton
             color="inherit"
@@ -66,6 +73,8 @@ const Navbar: React.FC = (props: INavbarProps) => {
           container={container}
           mobileOpen={mobileOpen}
           handleDrawerToggle={handleDrawerToggle}
+          checked={checked}
+          handlerSwitch={toggleTheme}
         />
       </StyledAppBar>
     </Container>

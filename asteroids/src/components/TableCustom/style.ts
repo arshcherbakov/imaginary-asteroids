@@ -14,7 +14,9 @@ const StyledTableRow = styled(TableRow)(() => ({
 }));
 
 const StyledTableCell = styled(TableCell)(() => ({
-  color: "#ffffff !important",
+  "&.MuiTableCell-root": {
+    color: "#ffffff",
+  },
 }));
 
 export { StyledAsteroidData, StyledTable, StyledTableRow, StyledTableCell };
