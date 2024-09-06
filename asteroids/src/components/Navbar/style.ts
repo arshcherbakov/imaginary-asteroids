@@ -3,21 +3,28 @@ import {
   Box,
   IconButton,
   Toolbar,
-  Button,
   Avatar,
   Typography,
+  Theme,
 } from "@mui/material";
 import styled from "styled-components";
 
-const StyledAppBar = styled(AppBar)(() => ({
-  height: 100,
+const StyledNavbar = styled(Box)(() => ({
+  width: "100%",
+  height: "100px",
   justifyContent: "center",
-  // background: "#ffffff",
   "&.MuiAppBar-root.MuiAppBar-colorPrimary": {
     "--Paper-overlay": "none !important",
     "--Paper-shadow": "none !important",
-    "--AppBar-background": "#ffffff",
-    // background: "#000",
+  },
+}));
+
+const StyledAppBar = styled(AppBar)(() => ({
+  height: "100px",
+  justifyContent: "center",
+  "&.MuiAppBar-root.MuiAppBar-colorPrimary": {
+    "--Paper-overlay": "none !important",
+    "--Paper-shadow": "none !important",
   },
 }));
 
@@ -33,21 +40,10 @@ const StyledIconButton = styled(IconButton)(() => ({
   },
 }));
 
-const StyledMenuItem = styled(Button)(() => ({
-  // color: "#ffffff !impo",
-  "&.MuiButton-root": {
-    // color: "#fcfcfc",
-    // // color: "#fff",
-    // color: "var(--variant-textColor)",
-    // "--variant-textColor": "none",
-    // color: "#000",
-  },
-}));
-
-const StyledLogoText = styled(Typography)(() => ({
+const StyledLogoText = styled(Typography)<{ theme?: Theme }>((theme) => ({
   flexGrow: 1,
   display: "none",
-  // color: "#000",
+
   "@media (min-width: 670px)": {
     display: "block",
   },
@@ -66,7 +62,6 @@ const StyledToolbar = styled(Toolbar)(() => ({
 
 const StyledWrapperMenuItem = styled(Box)(() => ({
   display: "none",
-
   "@media (min-width: 670px)": {
     display: "flex",
     alignItems: "center",
@@ -74,9 +69,9 @@ const StyledWrapperMenuItem = styled(Box)(() => ({
 }));
 
 export {
+  StyledNavbar,
   StyledAppBar,
   StyledIconButton,
-  StyledMenuItem,
   StyledLogoText,
   StyledLogoNasa,
   StyledToolbar,

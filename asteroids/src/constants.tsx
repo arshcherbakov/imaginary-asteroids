@@ -1,13 +1,7 @@
+import { IAsteroid } from "./interfases";
+
 export enum ROUTES_LIST {
   asteroids = "/asteroids",
-}
-
-interface IAsteroid {
-  id: string;
-  name: string;
-  name_limited: string;
-  absolute_magnitude_h: number;
-  designation: string;
 }
 
 export const TITLE_TABLE_ASTEROIDS: Array<keyof IAsteroid> = [
@@ -17,14 +11,6 @@ export const TITLE_TABLE_ASTEROIDS: Array<keyof IAsteroid> = [
   "absolute_magnitude_h",
   "designation",
 ];
-
-// export const TITLE_TABLE_ASTEROIDS = [
-//   { id: 1, title: "id" },
-//   { id: 2, title: "name" },
-//   { id: 3, title: "name_limited" },
-//   { id: 4, title: "absolute_magnitude_h" },
-//   { id: 5, title: "designation" },
-// ];
 
 export const LIST_ASTEROIDS = [
   {

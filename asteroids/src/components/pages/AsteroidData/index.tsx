@@ -1,14 +1,14 @@
-import { useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import Navbar from "../../Navbar";
 import TableCustom from "../../TableCustom";
 import { TITLE_TABLE_ASTEROIDS, LIST_ASTEROIDS } from "../../../constants";
-import { StyledAsteroidData, StyledBox, StyledWrapperContent } from "./style";
+import { StyledBox, StyledWrapperContent } from "./style";
 
 const AsteroidData: React.FC = () => {
   const theme = useTheme();
 
   return (
-    <StyledAsteroidData>
+    <Box>
       <Navbar />
       <StyledBox theme={theme}>
         <StyledWrapperContent maxWidth="xl">
@@ -19,7 +19,7 @@ const AsteroidData: React.FC = () => {
           />
         </StyledWrapperContent>
       </StyledBox>
-    </StyledAsteroidData>
+    </Box>
   );
 };
 

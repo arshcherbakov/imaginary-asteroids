@@ -5,13 +5,11 @@ import {
   TableRow,
   Paper,
   Typography,
+  TableCell,
+  TableContainer,
+  useTheme,
 } from "@mui/material";
-import {
-  StyledAsteroidData,
-  StyledTable,
-  StyledTableRow,
-  StyledTableCell,
-} from "./style";
+import { StyledTable, StyledTableRow } from "./style";
 
 interface ITableCustomProps<T> {
   titleTable?: string;
@@ -31,34 +29,41 @@ const TableCustom = <T extends IAsteroid>({
   titleTable,
   listData,
   listTableHeader,
-}: ITableCustomProps<T>): React.ReactElement => (
-  <Box>
-    <Typography>{titleTable}</Typography>
-    <Paper>
-      <StyledAsteroidData>
-        <StyledTable aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              {listTableHeader?.map((title, index) => (
-                <StyledTableCell key={index}>{title as string}</StyledTableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {listData.map((data) => (
-              <StyledTableRow key={data.id}>
-                {listTableHeader?.map((property, index) => (
-                  <StyledTableCell key={index} component="th" scope="row">
-                    {data[property] as unknown as string}
-                  </StyledTableCell>
+}: ITableCustomProps<T>): React.ReactElement => {
+  const theme = useTheme();
+  return (
+    <Box>
+      <Typography>{titleTable}</Typography>
+      <Paper>
+        <TableContainer
+          sx={{
+            background: theme.palette.primary.light,
+          }}
+        >
+          <StyledTable aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                {listTableHeader?.map((title, index) => (
+                  <TableCell key={index}>{title as string}</TableCell>
                 ))}
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </StyledTable>
-      </StyledAsteroidData>
-    </Paper>
-  </Box>
-);
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {listData.map((data) => (
+                <StyledTableRow key={data.id}>
+                  {listTableHeader?.map((property, index) => (
+                    <TableCell key={index} component="th" scope="row">
+                      {data[property] as unknown as string}
+                    </TableCell>
+                  ))}
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </StyledTable>
+        </TableContainer>
+      </Paper>
+    </Box>
+  );
+};
 
 export default TableCustom;
