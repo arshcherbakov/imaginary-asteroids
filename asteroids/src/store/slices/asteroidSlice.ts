@@ -1,18 +1,15 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { IAsteroid } from "../../interfases";
+import { IAsteroid } from "../../interfaces";
 import { getAllDataAboutAsteroids } from "../../services";
 
-interface AsteroidResponse {
-  near_earth_objects: IAsteroid[];
-}
-
 export const fetchAsteroids = createAsyncThunk<
-  IAsteroid[],
+  ListDateType,
   undefined,
   { rejectValue: string }
->("listAsteroids/fetchAsteroids", async (_, { rejectWithValue }) => {
+>("asteroids/fetchAsteroids", async (_, { rejectWithValue }) => {
   try {
     const response = await getAllDataAboutAsteroids();
+
     return response.data.near_earth_objects;
   } catch (error) {
     if (error instanceof Error) {
@@ -23,14 +20,16 @@ export const fetchAsteroids = createAsyncThunk<
   }
 });
 
+type ListDateType = Record<string, IAsteroid[]>;
+
 interface AsteroidState {
-  listAsteroids: IAsteroid[];
+  listDate: ListDateType;
   error: string | null;
   loading: boolean;
 }
 
 const initialState: AsteroidState = {
-  listAsteroids: [],
+  listDate: {},
   error: null,
   loading: false,
 };
@@ -47,7 +46,7 @@ const asteroidSlice = createSlice({
       })
       .addCase(fetchAsteroids.fulfilled, (state, action) => {
         state.loading = false;
-        state.listAsteroids = action.payload;
+        state.listDate = action.payload;
       })
       .addCase(fetchAsteroids.rejected, (state, action) => {
         state.loading = false;

@@ -10,7 +10,7 @@ import axios from "axios";
 import { getAllDataAboutAsteroids } from "../../../services";
 import { useDispatch } from "react-redux";
 import { fetchAsteroids } from "../../../store/slices/asteroidSlice";
-import { IAsteroid } from "../../../interfases";
+import { IAsteroid } from "../../../interfaces";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import PaginationItem from "@mui/material/PaginationItem";
@@ -19,38 +19,22 @@ const AsteroidData: React.FC = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
-  const asteroids = useSelector(
-    (state: RootState) => state.asteroids.listAsteroids
-  );
+  const { listDate } = useSelector((state: RootState) => state.asteroids);
 
-  const dateAsteroid: string[] = Object.keys(asteroids);
+  const dateAsteroid: string[] = Object.keys(listDate);
   const countPage: number = dateAsteroid.length;
   const [asteroidsSelectDate, setAsteroidsSelectDate] = useState<IAsteroid[]>(
     []
   );
 
   useEffect(() => {
-    // const fetchAsteroidData = async () => {
-    //   // const response = await fetch(
-    //   //   "https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=DEMO_KEY"
-    //   // );
-    //   // const data = await response.json();
-    //   // console.log(data);
-    //   const response = await axios.get(
-    //     "https://api.nasa.gov/neo/rest/v1/feed?start_date=2015-09-07&end_date=2015-09-08&api_key=DEMO_KEY"
-    //   );
-    //   console.log(response.data);
-    // };
-    // fetchAsteroidData();
-    dispatch<any>(fetchAsteroids());
-    console.log(asteroids);
-    console.log(asteroidsSelectDate);
+    // dispatch<any>(fetchAsteroids());
   }, []);
 
   const handlePage = (event: React.ChangeEvent<unknown>, value: number) => {
-    console.log(dateAsteroid[value - 1]);
     const date: string = dateAsteroid[value - 1];
-    setAsteroidsSelectDate(asteroids[date.toString()]);
+
+    setAsteroidsSelectDate(listDate[date]);
   };
 
   return (
