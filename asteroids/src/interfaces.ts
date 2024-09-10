@@ -58,7 +58,12 @@ interface IAsteroid {
   is_sentry_object: boolean;
 }
 
-export type { IAsteroid };
+interface ITitleTableAsteroids {
+  titleTable: string;
+  fieldName: string;
+}
+
+export type { IAsteroid, ITitleTableAsteroids };
 // {
 //   "id": "2440012",
 //   "neo_reference_id": "2440012",

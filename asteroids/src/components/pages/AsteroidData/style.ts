@@ -4,7 +4,7 @@ import BORD_SCRIN from "../../../assets/img/stars.jpg";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   background: theme.palette.mode === "dark" ? `url(${BORD_SCRIN})` : "#cdcdcd",
-  height: "100vh",
+  height: "100%",
 }));
 
 const StyledWrapperContent = styled(Container)(() => ({

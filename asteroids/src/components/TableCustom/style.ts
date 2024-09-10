@@ -1,4 +1,4 @@
-import { Table, TableRow } from "@mui/material";
+import { Table, TableRow, Select } from "@mui/material";
 import styled from "styled-components";
 
 const StyledTable = styled(Table)(() => ({
@@ -9,4 +9,9 @@ const StyledTableRow = styled(TableRow)(() => ({
   "&:last-child td, &:last-child th": { border: 0 },
 }));
 
-export { StyledTable, StyledTableRow };
+const StyledSelector = styled(Select)(() => ({
+  width: "auto",
+  height: "40px",
+}));
+
+export { StyledTable, StyledTableRow, StyledSelector };
