@@ -1028,55 +1028,22 @@ export const LOGO_NASA = {
   alt: "logo nasa",
 };
 
-export const DIAMETER_SIZES = [
-  {
-    title: "Километры",
-    value: "kilometers",
-  },
-  {
-    title: "Метры",
-    value: "meters",
-  },
-  {
-    title: "Мили",
-    value: "miles",
-  },
-  {
-    title: "Фут",
-    value: "feet",
-  },
-];
+export const DIAMETER_SIZES = {
+  kilometers: "Километры",
+  meters: "Метры",
+  miles: "Мили",
+  feet: "Фут",
+};
 
-export const RELATIVE_SPEED_UNITS = [
-  {
-    title: "км/с",
-    value: "kilometers_per_second",
-  },
-  {
-    title: "км/ч",
-    value: "kilometers_per_hour",
-  },
-  {
-    title: "миль/ч",
-    value: "miles_per_hour",
-  },
-];
+export const RELATIVE_SPEED_UNITS = {
+  kilometers_per_second: "км/с",
+  kilometers_per_hour: "км/ч",
+  miles_per_hour: "миль/ч",
+};
 
-export const UNITS_MEASUREMENT_SLIP_DISTANCE = [
-  {
-    title: "астрономическое",
-    value: "astronomical",
-  },
-  {
-    title: "лунное",
-    value: "lunar",
-  },
-  {
-    title: "км",
-    value: "kilometers",
-  },
-  {
-    title: "миль",
-    value: "miles",
-  },
-];
+export const UNITS_MEASUREMENT_SLIP_DISTANCE = {
+  astronomical: "астрономическое",
+  lunar: "лунное",
+  kilometers: "км",
+  miles: "миль",
+};
