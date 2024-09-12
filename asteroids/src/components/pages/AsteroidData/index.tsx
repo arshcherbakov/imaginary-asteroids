@@ -1,33 +1,35 @@
-import { useEffect, FC } from "react";
-import { Box, Pagination, useTheme } from "@mui/material";
-import Navbar from "../../Navbar";
-import TableAsteroids from "../../TableAsteroids";
-import { RootState } from "../../../store";
-import useAppDispatch from "../../../hooks/useAppDispatch";
-import useAppSelector from "../../../hooks/useAppSelector";
+import { useEffect, FC } from 'react';
+import { Box, useTheme } from '@mui/material';
+import Navbar from '../../Navbar';
+import TableAsteroids from '../../TableAsteroids';
+import { RootState } from '../../../store';
+import useAppDispatch from '../../../hooks/useAppDispatch';
+import useAppSelector from '../../../hooks/useAppSelector';
 import {
   fetchAsteroids,
+  fetchAsteroidsByDate,
   pagination,
-} from "../../../store/slices/asteroidSlice";
+} from '../../../store/slices/asteroidSlice';
 import {
   StyledBox,
   StyledWrapperContent,
   StyledStack,
   StyledPagination,
-} from "./style";
+} from './style';
 
 const AsteroidData: FC = () => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
 
   const { listAsteroids, listAllAsteroids } = useAppSelector(
-    (state: RootState) => state.asteroids
+    (state: RootState) => state.asteroids,
   );
 
   const countPages: number = Object.keys(listAllAsteroids).length;
 
   useEffect(() => {
     dispatch(fetchAsteroids());
+    // dispatch(fetchAsteroidsByDate());
   }, []);
 
   const handlePage = (_: React.ChangeEvent<unknown>, value: number) => {
