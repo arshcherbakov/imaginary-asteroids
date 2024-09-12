@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
 import App from "./App";
 import ThemeContextProvider from "./providers/ThemeContext";
+import { store } from "./store";
 import "./index.css";
 
 const root = ReactDOM.createRoot(
@@ -9,9 +11,11 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
     <ThemeContextProvider>
       <App />
     </ThemeContextProvider>
-  </React.StrictMode>
+  </Provider>
+  // </React.StrictMode>
 );

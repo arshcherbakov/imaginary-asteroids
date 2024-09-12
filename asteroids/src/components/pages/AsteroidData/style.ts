@@ -1,10 +1,10 @@
-import { Box, Container } from "@mui/material";
+import { Box, Container, Stack, Pagination } from "@mui/material";
 import styled from "styled-components";
 import BORD_SCRIN from "../../../assets/img/stars.jpg";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   background: theme.palette.mode === "dark" ? `url(${BORD_SCRIN})` : "#cdcdcd",
-  height: "100vh",
+  height: "100%",
 }));
 
 const StyledWrapperContent = styled(Container)(() => ({
@@ -15,4 +15,14 @@ const StyledWrapperContent = styled(Container)(() => ({
   paddingTop: "40px",
 }));
 
-export { StyledBox, StyledWrapperContent };
+const StyledStack = styled(Stack)(() => ({
+  displat: "flex",
+  alignItems: "center",
+  marginTop: "20px",
+}));
+
+const StyledPagination = styled(Pagination)(() => ({
+  marginBottom: "20px",
+}));
+
+export { StyledBox, StyledWrapperContent, StyledStack, StyledPagination };

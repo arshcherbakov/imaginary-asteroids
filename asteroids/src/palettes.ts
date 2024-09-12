@@ -16,6 +16,7 @@ const lightPalette = {
   mode: "light" as PaletteMode,
   primary: {
     main: "#fff",
+    light: "#e5e5e5",
     contrastText: "#000",
   },
   secondary: {
