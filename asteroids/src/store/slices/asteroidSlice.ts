@@ -1,18 +1,21 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
+import { AxiosError, AxiosResponse } from "axios";
+import { nearEarthObjectsType, listDateType } from "../../types";
 import { IAsteroid } from "../../interfaces";
 import { getAllDataAboutAsteroids } from "../../services";
 
 export const fetchAsteroids = createAsyncThunk<
-  ListDateType,
+  nearEarthObjectsType,
   undefined,
   { rejectValue: string }
 >("asteroids/fetchAsteroids", async (_, { rejectWithValue }) => {
   try {
-    const response = await getAllDataAboutAsteroids();
+    const response: AxiosResponse<listDateType> =
+      await getAllDataAboutAsteroids();
 
     return response.data.near_earth_objects;
   } catch (error) {
-    if (error instanceof Error) {
+    if (error instanceof AxiosError) {
       return rejectWithValue(error.message);
     } else {
       return rejectWithValue("An unknown error occurred");
@@ -23,13 +26,15 @@ export const fetchAsteroids = createAsyncThunk<
 type ListDateType = Record<string, IAsteroid[]>;
 
 interface AsteroidState {
-  listDate: ListDateType;
+  listAllAsteroids: ListDateType;
+  listAsteroids: IAsteroid[];
   error: string | null;
   loading: boolean;
 }
 
 const initialState: AsteroidState = {
-  listDate: {},
+  listAllAsteroids: {},
+  listAsteroids: [],
   error: null,
   loading: false,
 };
@@ -37,7 +42,14 @@ const initialState: AsteroidState = {
 const asteroidSlice = createSlice({
   name: "asteroids",
   initialState,
-  reducers: {},
+  reducers: {
+    pagination(state, action: PayloadAction<number>) {
+      const datesAsteroid: string[] = Object.keys(state.listAllAsteroids);
+      const date: string = datesAsteroid[action.payload - 1];
+
+      state.listAsteroids = state.listAllAsteroids[date];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAsteroids.pending, (state) => {
@@ -45,8 +57,12 @@ const asteroidSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchAsteroids.fulfilled, (state, action) => {
+        const datesAsteroids: string[] = Object.keys(action.payload);
+        const date: string = datesAsteroids[0];
+
+        state.listAllAsteroids = action.payload;
+        state.listAsteroids = action.payload[date];
         state.loading = false;
-        state.listDate = action.payload;
       })
       .addCase(fetchAsteroids.rejected, (state, action) => {
         state.loading = false;
@@ -55,4 +71,5 @@ const asteroidSlice = createSlice({
   },
 });
 
+export const { pagination } = asteroidSlice.actions;
 export default asteroidSlice.reducer;

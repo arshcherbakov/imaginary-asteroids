@@ -4,10 +4,9 @@ const $api: AxiosInstance = axios.create({
   params: {
     api_key: "DEMO_KEY",
   },
-  // baseURL: "https://api.nasa.gov/neo/rest/v1/neo/browse",
+  baseURL: "https://api.nasa.gov/neo/rest/v1/",
 });
 
-const post = $api.post;
 const get = $api.get;
 
-export { post, get };
+export { get };

@@ -1,17 +1,15 @@
-import { Table, TableRow, Select } from "@mui/material";
+import { TableRow, TableCell } from "@mui/material";
 import styled from "styled-components";
 
-const StyledTable = styled(Table)(() => ({
-  minWidth: 650,
-}));
-
 const StyledTableRow = styled(TableRow)(() => ({
-  "&:last-child td, &:last-child th": { border: 0 },
+  "& > *": { borderBottom: "unset" },
 }));
 
-const StyledSelector = styled(Select)(() => ({
-  width: "auto",
-  height: "40px",
+const StyledTableCellBody = styled(TableCell)((style) => ({
+  "&.MuiTableCell-root": {
+    paddingBottom: 0,
+    paddingTop: 0,
+  },
 }));
 
-export { StyledTable, StyledTableRow, StyledSelector };
+export { StyledTableRow, StyledTableCellBody };

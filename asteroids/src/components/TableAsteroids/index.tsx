@@ -13,31 +13,25 @@ import {
   Typography,
 } from "@mui/material";
 import CustomSelector from "../UI/CustomSelector";
-import PopupTableApproach from "../PopupTableApproach ";
-import {
-  TITLE_TABLE_ASTEROIDS,
-  DIAMETER_SIZES,
-  LIST_ASTEROIDS,
-} from "../../constants";
-import { IAsteroid, ITitleTableAsteroids } from "../../interfaces";
-import { StyledTable, StyledTableRow, StyledSelector } from "./style";
+import PopupTableApproach from "../PopupTableApproach";
+import convertBooleanToAnswer from "../../helpers/convert-boolean-to-answer";
+import { TITLE_TABLE_ASTEROIDS, DIAMETER_SIZES } from "../../constants";
+import { IAsteroid } from "../../interfaces";
+import ITableAsteroidsProps from "./interface";
+import { StyledTableRow, StyledTableCellBody } from "./style";
 
-interface ITableCustomProps {
-  titleTable?: string;
-  listData: IAsteroid[];
-  listTableHeader: ITitleTableAsteroids[];
-}
+const styleTableCellWithSelector = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column",
+};
 
-const TableAsteroids: React.FC<ITableCustomProps> = ({
-  titleTable,
-  listData,
-  listTableHeader,
-}) => {
+const TableAsteroids: React.FC<ITableAsteroidsProps> = ({ listData }) => {
   const theme = useTheme();
 
   const [quantity, setQuantity] =
     useState<keyof IAsteroid["estimated_diameter"]>("kilometers");
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [idOpenTabl, setIdOpenTabl] = useState<string>("");
 
@@ -59,23 +53,13 @@ const TableAsteroids: React.FC<ITableCustomProps> = ({
               <TableCell
                 align="center"
                 key={index}
-                sx={
-                  index === 3
-                    ? {
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                      }
-                    : {}
-                }
+                sx={index === 3 ? styleTableCellWithSelector : {}}
               >
                 {title.titleTable}
                 {index === 3 && (
                   <CustomSelector
                     selelctorValue={quantity}
                     dataList={DIAMETER_SIZES}
-                    styleSelector={{ marginLeft: "10px" }}
                     handleSelector={handleQuantity}
                   />
                 )}
@@ -83,14 +67,10 @@ const TableAsteroids: React.FC<ITableCustomProps> = ({
             ))}
           </TableRow>
         </TableHead>
-
         <TableBody>
-          {LIST_ASTEROIDS.map((data: IAsteroid) => (
+          {listData.map((data: IAsteroid) => (
             <React.Fragment key={data.id}>
-              <TableRow
-                sx={{ "& > *": { borderBottom: "unset" } }}
-                onClick={() => handleOpenPopupTable(data.id)}
-              >
+              <StyledTableRow onClick={() => handleOpenPopupTable(data.id)}>
                 {TITLE_TABLE_ASTEROIDS.slice(0, 3).map((title, index) => (
                   <TableCell
                     key={index}
@@ -98,25 +78,23 @@ const TableAsteroids: React.FC<ITableCustomProps> = ({
                     scope="row"
                     align="center"
                   >
-                    {index === 0 ? (
+                    {index === 0 && (
                       <Link
                         href={data.nasa_jpl_url}
                         sx={{ color: theme.palette.primary.contrastText }}
                       >
                         {data[title.fieldName as keyof IAsteroid] as string}
                       </Link>
-                    ) : index === 2 ? (
-                      (data[title.fieldName as keyof IAsteroid] as string) ? (
-                        "Да"
-                      ) : (
-                        "Нет"
-                      )
-                    ) : (
-                      (data[title.fieldName as keyof IAsteroid] as string)
+                    )}
+                    {index === 2 &&
+                      convertBooleanToAnswer(
+                        data[title.fieldName as keyof IAsteroid] as boolean
+                      )}
+                    {index !== 0 && index !== 2 && (
+                      <>{data[title.fieldName as keyof IAsteroid] as string}</>
                     )}
                   </TableCell>
                 ))}
-
                 <TableCell component="th" scope="row" align="center">
                   <Typography>
                     Min:
@@ -127,15 +105,12 @@ const TableAsteroids: React.FC<ITableCustomProps> = ({
                     {data.estimated_diameter[quantity].estimated_diameter_max}
                   </Typography>
                 </TableCell>
-
                 <TableCell component="th" scope="row" align="center">
-                  {data.is_sentry_object ? "Да" : "Нет"}
+                  {convertBooleanToAnswer(data.is_sentry_object)}
                 </TableCell>
-              </TableRow>
-
+              </StyledTableRow>
               <TableRow>
-                <TableCell
-                  style={{ paddingBottom: 0, paddingTop: 0 }}
+                <StyledTableCellBody
                   sx={{ background: theme.palette.primary.light }}
                   colSpan={6}
                 >
@@ -143,7 +118,7 @@ const TableAsteroids: React.FC<ITableCustomProps> = ({
                     open={idOpenTabl === data.id ? isOpen : false}
                     asteroid={data}
                   />
-                </TableCell>
+                </StyledTableCellBody>
               </TableRow>
             </React.Fragment>
           ))}

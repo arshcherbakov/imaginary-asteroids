@@ -1,7 +1,8 @@
-interface ITableCustomProps<T> {
+import { IAsteroid } from "../../interfaces";
+
+interface ITableAsteroidsProps {
   titleTable?: string;
-  listData: T[];
-  listTableHeader: (keyof T)[];
+  listData: IAsteroid[];
 }
 
-export default ITableCustomProps;
+export default ITableAsteroidsProps;

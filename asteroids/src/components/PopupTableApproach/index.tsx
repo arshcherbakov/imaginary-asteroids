@@ -9,6 +9,7 @@ import {
 } from "../../constants";
 import { IAsteroid } from "../../interfaces";
 import IPopupTableApproach from "./interface";
+import { StyledTableApproachCell } from "./style";
 
 const PopupTableApproach: FC<IPopupTableApproach> = ({ open, asteroid }) => {
   const [unitsOfSpeed, setUnitsOfSpeed] = useState<
@@ -52,17 +53,7 @@ const PopupTableApproach: FC<IPopupTableApproach> = ({ open, asteroid }) => {
             </TableCell>
           )
       )}
-
-      <TableCell
-        component="th"
-        scope="row"
-        align="center"
-        sx={{
-          display: "flex",
-          justifyContent: "space-evenly",
-          alignItems: "center",
-        }}
-      >
+      <StyledTableApproachCell component="th" scope="row" align="center">
         {
           asteroid.close_approach_data[0].relative_velocity[
             unitsOfSpeed as keyof IAsteroid["close_approach_data"][0]["relative_velocity"]
@@ -72,9 +63,9 @@ const PopupTableApproach: FC<IPopupTableApproach> = ({ open, asteroid }) => {
           selelctorValue={unitsOfSpeed}
           dataList={RELATIVE_SPEED_UNITS}
           handleSelector={handleUnitsOfSpeed}
+          styleSelector={{ marginLeft: "10px" }}
         />
-      </TableCell>
-
+      </StyledTableApproachCell>
       <TableCell component="th" scope="row" align="center">
         {
           asteroid.close_approach_data[0].miss_distance[

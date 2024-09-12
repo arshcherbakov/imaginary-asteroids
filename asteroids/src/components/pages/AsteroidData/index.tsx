@@ -1,40 +1,37 @@
-import { useEffect, useState } from "react";
-import { Box, useTheme } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useEffect, FC } from "react";
+import { Box, Pagination, useTheme } from "@mui/material";
 import Navbar from "../../Navbar";
 import TableAsteroids from "../../TableAsteroids";
-import { TITLE_TABLE_ASTEROIDS, LIST_ASTEROIDS } from "../../../constants";
-import { StyledBox, StyledWrapperContent } from "./style";
 import { RootState } from "../../../store";
-import axios from "axios";
-import { getAllDataAboutAsteroids } from "../../../services";
-import { useDispatch } from "react-redux";
-import { fetchAsteroids } from "../../../store/slices/asteroidSlice";
-import { IAsteroid } from "../../../interfaces";
-import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import PaginationItem from "@mui/material/PaginationItem";
+import useAppDispatch from "../../../hooks/useAppDispatch";
+import useAppSelector from "../../../hooks/useAppSelector";
+import {
+  fetchAsteroids,
+  pagination,
+} from "../../../store/slices/asteroidSlice";
+import {
+  StyledBox,
+  StyledWrapperContent,
+  StyledStack,
+  StyledPagination,
+} from "./style";
 
-const AsteroidData: React.FC = () => {
+const AsteroidData: FC = () => {
   const theme = useTheme();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { listDate } = useSelector((state: RootState) => state.asteroids);
-
-  const dateAsteroid: string[] = Object.keys(listDate);
-  const countPage: number = dateAsteroid.length;
-  const [asteroidsSelectDate, setAsteroidsSelectDate] = useState<IAsteroid[]>(
-    []
+  const { listAsteroids, listAllAsteroids } = useAppSelector(
+    (state: RootState) => state.asteroids
   );
 
+  const countPages: number = Object.keys(listAllAsteroids).length;
+
   useEffect(() => {
-    // dispatch<any>(fetchAsteroids());
+    dispatch(fetchAsteroids());
   }, []);
 
-  const handlePage = (event: React.ChangeEvent<unknown>, value: number) => {
-    const date: string = dateAsteroid[value - 1];
-
-    setAsteroidsSelectDate(listDate[date]);
+  const handlePage = (_: React.ChangeEvent<unknown>, value: number) => {
+    dispatch(pagination(value));
   };
 
   return (
@@ -42,25 +39,15 @@ const AsteroidData: React.FC = () => {
       <Navbar />
       <StyledBox theme={theme}>
         <StyledWrapperContent maxWidth="xl">
-          <TableAsteroids
-            titleTable="Asteroid data"
-            listTableHeader={TITLE_TABLE_ASTEROIDS}
-            listData={LIST_ASTEROIDS}
-          />
-          <Stack
-            sx={{
-              displat: "flex",
-              alignItems: "center",
-              marginTop: "20px",
-            }}
-          >
-            <Pagination
-              count={countPage || 8}
+          <TableAsteroids titleTable="Asteroid data" listData={listAsteroids} />
+          <StyledStack>
+            <StyledPagination
+              count={countPages}
               variant="outlined"
               shape="rounded"
               onChange={handlePage}
             />
-          </Stack>
+          </StyledStack>
         </StyledWrapperContent>
       </StyledBox>
     </Box>
