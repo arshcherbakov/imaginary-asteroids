@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError, AxiosResponse } from 'axios';
+import dayjs, { Dayjs } from 'dayjs';
 import { nearEarthObjectsType, listDateType } from '../../types';
 import { IAsteroid } from '../../interfaces';
 import {
@@ -29,8 +30,8 @@ export const fetchAsteroids = createAsyncThunk<
 export const fetchAsteroidsByDate = createAsyncThunk<
   nearEarthObjectsType,
   {
-    startDate: string;
-    endDate: string;
+    startDate: Dayjs | null;
+    endDate: Dayjs | null;
   },
   { rejectValue: string }
 >(
@@ -38,8 +39,11 @@ export const fetchAsteroidsByDate = createAsyncThunk<
   async ({ startDate, endDate }, { rejectWithValue }) => {
     try {
       const response: AxiosResponse<listDateType> =
-        await getListAsteroidsByDate('2015-09-07', '2015-09-10');
-      console.log(response.data.near_earth_objects);
+        await getListAsteroidsByDate(
+          startDate?.toISOString() as string,
+          endDate?.toISOString() as string,
+        );
+
       return response.data.near_earth_objects;
     } catch (error) {
       if (error instanceof AxiosError) {
