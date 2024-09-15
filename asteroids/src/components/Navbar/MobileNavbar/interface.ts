@@ -4,6 +4,7 @@ interface IMobileNavbar {
   handleDrawerToggle: () => void;
   checked: boolean;
   handlerSwitch: () => void;
+  handleShowDatePicker: () => void;
 }
 
 export default IMobileNavbar;

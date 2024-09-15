@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { Dayjs } from 'dayjs';
 import { get } from '../http/index';
 
 export const getAllDataAboutAsteroids = (): Promise<AxiosResponse> =>

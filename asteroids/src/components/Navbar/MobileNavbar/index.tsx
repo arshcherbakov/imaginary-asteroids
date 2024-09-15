@@ -4,16 +4,16 @@ import {
   ListItem,
   ListItemText,
   Typography,
-} from "@mui/material";
-import ChangeThemeButton from "../../UI/ChangeThemeButton";
-import { NAVIGATE_TITLES } from "../../../constants";
-import IMobileNavbar from "./interface";
+} from '@mui/material';
+import ChangeThemeButton from '../../UI/ChangeThemeButton';
+import { NAVIGATE_TITLES } from '../../../constants';
+import IMobileNavbar from './interface';
 import {
   StyledMobileNavbar,
   StyledMobileMenuCenter,
   StyledMobileListCenter,
   StyledMobileMenuHeader,
-} from "./style";
+} from './style';
 
 const MobileNavbar: React.FC<IMobileNavbar> = ({
   container,
@@ -21,6 +21,7 @@ const MobileNavbar: React.FC<IMobileNavbar> = ({
   handleDrawerToggle,
   checked,
   handlerSwitch,
+  handleShowDatePicker,
 }) => (
   <nav>
     <StyledMobileNavbar
@@ -41,10 +42,15 @@ const MobileNavbar: React.FC<IMobileNavbar> = ({
         </StyledMobileMenuHeader>
         <Divider />
         <List>
-          {NAVIGATE_TITLES.map((menuItem) => (
+          {NAVIGATE_TITLES.map(menuItem => (
             <ListItem key={menuItem.id} disablePadding>
               <StyledMobileListCenter>
-                <ListItemText primary={menuItem.title} />
+                <ListItemText
+                  onClick={
+                    menuItem.id === 2 ? () => handleShowDatePicker() : () => {}
+                  }
+                  primary={menuItem.title}
+                />
               </StyledMobileListCenter>
             </ListItem>
           ))}

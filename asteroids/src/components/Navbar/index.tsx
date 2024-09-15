@@ -97,6 +97,7 @@ const Navbar: React.FC<INavbarProps> = ({ window, handleShowDatePicker }) => {
             handleDrawerToggle={handleDrawerToggle}
             checked={checked}
             handlerSwitch={toggleTheme}
+            handleShowDatePicker={handleShowDatePicker}
           />
         </StyledAppBar>
       </Container>

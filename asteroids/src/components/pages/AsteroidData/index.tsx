@@ -1,10 +1,10 @@
 import { useEffect, useState, FC } from 'react';
-import { Box, Button, Container, useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Dayjs } from 'dayjs';
 import Navbar from '../../Navbar';
+import DateInputs from '../../DateInputs';
 import TableAsteroids from '../../TableAsteroids';
 import { RootState } from '../../../store';
 import useAppDispatch from '../../../hooks/useAppDispatch';
@@ -19,24 +19,11 @@ import {
   StyledWrapperContent,
   StyledStack,
   StyledPagination,
-  StyledContainerDate,
-  StyledWrapperDate,
-  StyledDatePickerStart,
-  StyledDatePickerEnd,
 } from './style';
 
 const AsteroidData: FC = () => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-
-  const styleDatePicker = {
-    '& .MuiOutlinedInput-root.Mui-focused fieldset': {
-      borderColor: theme.palette.primary.dark,
-    },
-    '& .MuiInputLabel-root.Mui-focused': {
-      color: theme.palette.primary.contrastText,
-    },
-  };
 
   const [dateSearch, setDateSearch] = useState({
     startDate: null as Dayjs | null,
@@ -52,8 +39,8 @@ const AsteroidData: FC = () => {
   const countPages: number = Object.keys(listAllAsteroids).length;
 
   useEffect(() => {
-    // dispatch(fetchAsteroids());
-  }, []);
+    dispatch(fetchAsteroids());
+  }, [dispatch]);
 
   const handlePage = (_: React.ChangeEvent<unknown>, value: number) => {
     dispatch(pagination(value));
@@ -78,33 +65,11 @@ const AsteroidData: FC = () => {
         <StyledBox theme={theme}>
           <StyledWrapperContent maxWidth="xl">
             {isShowDatePicker && (
-              <StyledContainerDate maxWidth="xl">
-                <StyledWrapperDate>
-                  <StyledDatePickerStart
-                    label="Дата начала поиска астероидов"
-                    value={dateSearch.startDate}
-                    onChange={date => handleSetDate('startDate', date)}
-                    sx={styleDatePicker}
-                  />
-                  <StyledDatePickerEnd
-                    label="Дата окончания поиска астероидов"
-                    value={dateSearch.endDate}
-                    onChange={date => handleSetDate('endDate', date)}
-                    sx={styleDatePicker}
-                  />
-                  <Button
-                    onClick={handleSearchByDate}
-                    sx={{
-                      background: theme.palette.primary.light,
-                      color: theme.palette.primary.contrastText,
-                      width: '100px',
-                      height: '40px',
-                    }}
-                  >
-                    Найти
-                  </Button>
-                </StyledWrapperDate>
-              </StyledContainerDate>
+              <DateInputs
+                handleSetDate={handleSetDate}
+                dateSearch={dateSearch}
+                handleSearchByDate={handleSearchByDate}
+              />
             )}
             <TableAsteroids
               titleTable="Asteroid data"
