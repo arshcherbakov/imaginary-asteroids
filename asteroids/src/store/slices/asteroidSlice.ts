@@ -18,12 +18,11 @@ export const fetchAsteroids = createAsyncThunk<
       await getAllDataAboutAsteroids();
 
     return response.data.near_earth_objects;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      return rejectWithValue(error.message);
-    } else {
-      return rejectWithValue('An unknown error occurred');
-    }
+  } catch (error: unknown) {
+    const axiosError = error as AxiosError<{ error_message: string }>;
+    const errorText = axiosError.response?.data?.error_message;
+
+    return rejectWithValue(errorText || 'An unknown error occurred');
   }
 });
 
@@ -45,12 +44,11 @@ export const fetchAsteroidsByDate = createAsyncThunk<
         );
 
       return response.data.near_earth_objects;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        return rejectWithValue(error.message);
-      } else {
-        return rejectWithValue('An unknown error occurred');
-      }
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError<{ error_message: string }>;
+      const errorText = axiosError.response?.data?.error_message;
+
+      return rejectWithValue(errorText || 'An unknown error occurred');
     }
   },
 );

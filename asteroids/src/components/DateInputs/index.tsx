@@ -7,12 +7,14 @@ import {
   StyledDatePickerStart,
   StyledDatePickerEnd,
   StyledButtonSearch,
+  StyledErrorText,
 } from './style';
 
 const DateInputs: React.FC<IDateInputs> = ({
   handleSetDate,
   dateSearch,
   handleSearchByDate,
+  errorValidate,
 }) => {
   const theme = useTheme();
 
@@ -50,6 +52,8 @@ const DateInputs: React.FC<IDateInputs> = ({
           Найти
         </StyledButtonSearch>
       </StyledWrapperDate>
+
+      <StyledErrorText>{errorValidate}</StyledErrorText>
     </StyledContainerDate>
   );
 };

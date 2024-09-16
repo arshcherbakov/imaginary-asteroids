@@ -1,12 +1,13 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import styled from 'styled-components';
 
 const StyledContainerDate = styled(Box)(() => ({
   display: 'flex',
   height: '100px',
-  justifyContent: 'flex-end',
-  alignItems: 'center',
+  flexDirection: 'column',
+  justifyContent: 'space-evenly',
+  alignItems: 'flex-end',
 }));
 
 const StyledWrapperDate = styled(Box)(() => ({
@@ -29,10 +30,15 @@ const StyledButtonSearch = styled(Button)(() => ({
   height: '40px',
 }));
 
+const StyledErrorText = styled(Typography)(() => ({
+  color: '#d05252',
+}));
+
 export {
   StyledContainerDate,
   StyledWrapperDate,
   StyledDatePickerStart,
   StyledDatePickerEnd,
   StyledButtonSearch,
+  StyledErrorText,
 };

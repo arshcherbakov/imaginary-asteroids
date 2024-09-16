@@ -2,11 +2,11 @@ import { useEffect, useState, FC } from 'react';
 import { Box, useTheme } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import Navbar from '../../Navbar';
 import DateInputs from '../../DateInputs';
 import TableAsteroids from '../../TableAsteroids';
-import { RootState } from '../../../store';
+import SnackbarMessage from '../../SnackbarMessage';
 import useAppDispatch from '../../../hooks/useAppDispatch';
 import useAppSelector from '../../../hooks/useAppSelector';
 import {
@@ -14,6 +14,8 @@ import {
   fetchAsteroidsByDate,
   pagination,
 } from '../../../store/slices/asteroidSlice';
+import { ERRORS, DATE_DIFFERENCE } from '../../../constants';
+import { RootState } from '../../../store';
 import {
   StyledBox,
   StyledWrapperContent,
@@ -30,9 +32,11 @@ const AsteroidData: FC = () => {
     endDate: null as Dayjs | null,
   });
 
+  const [errorValidate, setErrorValidate] = useState<string>('');
+  const [isErrorShow, setIsErrorShow] = useState<boolean>(false);
   const [isShowDatePicker, setIsShowDatePicker] = useState<boolean>(false);
 
-  const { listAsteroids, listAllAsteroids } = useAppSelector(
+  const { listAsteroids, listAllAsteroids, error } = useAppSelector(
     (state: RootState) => state.asteroids,
   );
 
@@ -41,6 +45,12 @@ const AsteroidData: FC = () => {
   useEffect(() => {
     dispatch(fetchAsteroids());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      setIsErrorShow(true);
+    }
+  }, [error]);
 
   const handlePage = (_: React.ChangeEvent<unknown>, value: number) => {
     dispatch(pagination(value));
@@ -51,11 +61,34 @@ const AsteroidData: FC = () => {
   };
 
   const handleSearchByDate = () => {
+    const dayStart = dayjs(dateSearch.startDate);
+    const dayEnd = dayjs(dateSearch.endDate);
+
+    if (!dayStart.isValid()) {
+      setErrorValidate(ERRORS.missingStartDateField);
+      return;
+    }
+
+    if (!dayEnd.isValid()) {
+      setErrorValidate(ERRORS.missingEndDateField);
+      return;
+    }
+
+    setErrorValidate('');
+
+    dayEnd.diff(dayStart, 'day') > DATE_DIFFERENCE
+      ? setErrorValidate(ERRORS.dateDifference)
+      : dispatch(fetchAsteroidsByDate(dateSearch));
+
     dispatch(fetchAsteroidsByDate(dateSearch));
   };
 
   const handleShowDatePicker = () => {
     setIsShowDatePicker(!isShowDatePicker);
+  };
+
+  const snackbarClose = () => {
+    setIsErrorShow(false);
   };
 
   return (
@@ -69,6 +102,7 @@ const AsteroidData: FC = () => {
                 handleSetDate={handleSetDate}
                 dateSearch={dateSearch}
                 handleSearchByDate={handleSearchByDate}
+                errorValidate={errorValidate}
               />
             )}
             <TableAsteroids
@@ -85,6 +119,11 @@ const AsteroidData: FC = () => {
             </StyledStack>
           </StyledWrapperContent>
         </StyledBox>
+        <SnackbarMessage
+          message={error}
+          open={isErrorShow}
+          snackbarClose={snackbarClose}
+        />
       </LocalizationProvider>
     </Box>
   );
