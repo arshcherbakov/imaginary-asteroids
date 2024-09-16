@@ -31,7 +31,13 @@ const StyledButtonSearch = styled(Button)(() => ({
 }));
 
 const StyledErrorText = styled(Typography)(() => ({
+  position: 'absolute',
   color: '#d05252',
+
+  '&.MuiTypography-root': {
+    marginTop: '75px',
+    fontSize: '14px',
+  },
 }));
 
 export {

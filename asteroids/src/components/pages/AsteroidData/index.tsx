@@ -79,8 +79,6 @@ const AsteroidData: FC = () => {
     dayEnd.diff(dayStart, 'day') > DATE_DIFFERENCE
       ? setErrorValidate(ERRORS.dateDifference)
       : dispatch(fetchAsteroidsByDate(dateSearch));
-
-    dispatch(fetchAsteroidsByDate(dateSearch));
   };
 
   const handleShowDatePicker = () => {
