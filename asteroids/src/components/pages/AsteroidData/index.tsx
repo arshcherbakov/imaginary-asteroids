@@ -74,11 +74,12 @@ const AsteroidData: FC = () => {
       return;
     }
 
-    setErrorValidate('');
-
-    dayEnd.diff(dayStart, 'day') > DATE_DIFFERENCE
-      ? setErrorValidate(ERRORS.dateDifference)
-      : dispatch(fetchAsteroidsByDate(dateSearch));
+    if (dayEnd.diff(dayStart, 'day') > DATE_DIFFERENCE) {
+      setErrorValidate(ERRORS.dateDifference);
+    } else {
+      setErrorValidate('');
+      dispatch(fetchAsteroidsByDate(dateSearch));
+    }
   };
 
   const handleShowDatePicker = () => {
