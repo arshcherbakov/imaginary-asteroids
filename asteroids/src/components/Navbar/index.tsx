@@ -1,12 +1,12 @@
-import { useState, useContext } from "react";
-import { Box, CssBaseline, IconButton, Container, Button } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-import MenuIcon from "@mui/icons-material/Menu";
-import { Context } from "../../context/context";
-import MobileNavbar from "./MobileNavbar";
-import ChangeThemeButton from "../UI/ChangeThemeButton";
-import { NAVIGATE_TITLES, LOGO_NASA } from "../../constants";
-import Nasa from "../../assets/img/nasa-logo.svg";
+import { useState, useContext } from 'react';
+import { Box, CssBaseline, IconButton, Container, Button } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Context } from '../../context/context';
+import MobileNavbar from './MobileNavbar';
+import ChangeThemeButton from '../UI/ChangeThemeButton';
+import { NAVIGATE_TITLES, LOGO_NASA } from '../../constants';
+import Nasa from '../../assets/img/nasa-logo.svg';
 import {
   StyledNavbar,
   StyledAppBar,
@@ -15,15 +15,14 @@ import {
   StyledLogoNasa,
   StyledToolbar,
   StyledWrapperMenuItem,
-} from "./style";
+} from './style';
 
 interface INavbarProps {
   window?: () => Window;
+  handleShowDatePicker: () => void;
 }
 
-const Navbar: React.FC = (props: INavbarProps) => {
-  const { window } = props;
-
+const Navbar: React.FC<INavbarProps> = ({ window, handleShowDatePicker }) => {
   const theme = useTheme();
 
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -38,7 +37,7 @@ const Navbar: React.FC = (props: INavbarProps) => {
   };
 
   const handleDrawerToggle = () => {
-    setMobileOpen((prevState) => !prevState);
+    setMobileOpen(prevState => !prevState);
   };
 
   const container =
@@ -67,9 +66,10 @@ const Navbar: React.FC = (props: INavbarProps) => {
               NASA
             </StyledLogoText>
             <StyledWrapperMenuItem>
-              {NAVIGATE_TITLES.map((menuItem) => (
+              {NAVIGATE_TITLES(handleShowDatePicker).map(menuItem => (
                 <Button
                   key={menuItem.id}
+                  onClick={menuItem?.onClick}
                   sx={{ color: theme.palette.primary.contrastText }}
                 >
                   {menuItem.title}
@@ -95,6 +95,7 @@ const Navbar: React.FC = (props: INavbarProps) => {
             handleDrawerToggle={handleDrawerToggle}
             checked={checked}
             handlerSwitch={toggleTheme}
+            handleShowDatePicker={handleShowDatePicker}
           />
         </StyledAppBar>
       </Container>
