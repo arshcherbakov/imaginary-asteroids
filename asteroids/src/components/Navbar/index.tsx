@@ -69,7 +69,7 @@ const Navbar: React.FC<INavbarProps> = ({ window, handleShowDatePicker }) => {
               {NAVIGATE_TITLES(handleShowDatePicker).map(menuItem => (
                 <Button
                   key={menuItem.id}
-                  onClick={menuItem?.onClick || undefined}
+                  onClick={menuItem?.onClick}
                   sx={{ color: theme.palette.primary.contrastText }}
                 >
                   {menuItem.title}

@@ -44,7 +44,7 @@ const MobileNavbar: React.FC<IMobileNavbar> = ({
         <List>
           {NAVIGATE_TITLES(handleShowDatePicker).map(menuItem => (
             <ListItem key={menuItem.id} disablePadding>
-              <StyledMobileListCenter onClick={menuItem?.onClick || undefined}>
+              <StyledMobileListCenter onClick={menuItem?.onClick}>
                 <ListItemText primary={menuItem.title} />
               </StyledMobileListCenter>
             </ListItem>
