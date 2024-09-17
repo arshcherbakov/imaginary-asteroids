@@ -40,7 +40,7 @@ export const fetchAsteroidsByDate = createAsyncThunk<
       const response: AxiosResponse<listDateType> =
         await getListAsteroidsByDate(
           startDate?.toISOString() as string,
-          endDate?.toISOString() as string,
+          endDate ? endDate.toISOString() : '',
         );
 
       return response.data.near_earth_objects;

@@ -69,8 +69,9 @@ const AsteroidData: FC = () => {
       return;
     }
 
-    if (!dayEnd.isValid()) {
-      setErrorValidate(ERRORS.missingEndDateField);
+    if (!dayEnd) {
+      setErrorValidate('');
+      dispatch(fetchAsteroidsByDate(dateSearch));
       return;
     }
 
