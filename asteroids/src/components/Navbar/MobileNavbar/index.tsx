@@ -42,15 +42,10 @@ const MobileNavbar: React.FC<IMobileNavbar> = ({
         </StyledMobileMenuHeader>
         <Divider />
         <List>
-          {NAVIGATE_TITLES.map(menuItem => (
+          {NAVIGATE_TITLES(handleShowDatePicker).map(menuItem => (
             <ListItem key={menuItem.id} disablePadding>
-              <StyledMobileListCenter>
-                <ListItemText
-                  onClick={
-                    menuItem.id === 2 ? () => handleShowDatePicker() : () => {}
-                  }
-                  primary={menuItem.title}
-                />
+              <StyledMobileListCenter onClick={menuItem?.onClick || undefined}>
+                <ListItemText primary={menuItem.title} />
               </StyledMobileListCenter>
             </ListItem>
           ))}

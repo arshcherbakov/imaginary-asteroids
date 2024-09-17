@@ -51,7 +51,7 @@ export const TITLE_TABLE_ASTEROIDS: ITitleTableAsteroids[] = [
   },
 ];
 
-export const NAVIGATE_TITLES = [
+export const NAVIGATE_TITLES = (handleShowDatePicker: () => void) => [
   {
     id: 1,
     title: 'Астероиды',
@@ -59,6 +59,7 @@ export const NAVIGATE_TITLES = [
   {
     id: 2,
     title: 'По дате сближения',
+    onClick: () => handleShowDatePicker(),
   },
   {
     id: 3,

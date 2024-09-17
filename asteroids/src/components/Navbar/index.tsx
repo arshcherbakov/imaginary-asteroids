@@ -66,12 +66,10 @@ const Navbar: React.FC<INavbarProps> = ({ window, handleShowDatePicker }) => {
               NASA
             </StyledLogoText>
             <StyledWrapperMenuItem>
-              {NAVIGATE_TITLES.map(menuItem => (
+              {NAVIGATE_TITLES(handleShowDatePicker).map(menuItem => (
                 <Button
                   key={menuItem.id}
-                  onClick={
-                    menuItem.id === 2 ? () => handleShowDatePicker() : () => {}
-                  }
+                  onClick={menuItem?.onClick || undefined}
                   sx={{ color: theme.palette.primary.contrastText }}
                 >
                   {menuItem.title}

@@ -11,12 +11,10 @@ const SnackbarMessage: React.FC<SnackbarMessageProp> = ({
   message,
   open,
   snackbarClose,
-}) => {
-  return (
-    <Snackbar open={open} autoHideDuration={4000} onClose={snackbarClose}>
-      <StyledSnackbarContent message={message} />
-    </Snackbar>
-  );
-};
+}) => (
+  <Snackbar open={open} autoHideDuration={4000} onClose={snackbarClose}>
+    <StyledSnackbarContent message={message} />
+  </Snackbar>
+);
 
 export default SnackbarMessage;
