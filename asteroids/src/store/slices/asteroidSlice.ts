@@ -6,6 +6,7 @@ import { IAsteroid } from '../../interfaces';
 import {
   getAllDataAboutAsteroids,
   getListAsteroidsByDate,
+  getSpecificAsteroid,
 } from '../../services';
 
 export const fetchAsteroids = createAsyncThunk<
@@ -53,11 +54,33 @@ export const fetchAsteroidsByDate = createAsyncThunk<
   },
 );
 
+export const searchSpecificAsteroid = createAsyncThunk<
+  IAsteroid,
+  string,
+  { rejectValue: string }
+>(
+  'asteroids/searchSpecificAsteroid ',
+  async (dataAsteroid, { rejectWithValue }) => {
+    try {
+      const response: AxiosResponse<IAsteroid> =
+        await getSpecificAsteroid(dataAsteroid);
+      console.log(response.data);
+      return response.data;
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError<{ error_message: string }>;
+      const errorText = axiosError.response?.data?.error_message;
+
+      return rejectWithValue(errorText || 'An unknown error occurred');
+    }
+  },
+);
+
 type ListDateType = Record<string, IAsteroid[]>;
 
 interface AsteroidState {
   listAllAsteroids: ListDateType;
   listAsteroids: IAsteroid[];
+  asteroid: IAsteroid | null;
   error: string | null;
   loading: boolean;
 }
@@ -65,6 +88,7 @@ interface AsteroidState {
 const initialState: AsteroidState = {
   listAllAsteroids: {},
   listAsteroids: [],
+  asteroid: null,
   error: null,
   loading: false,
 };
@@ -111,6 +135,17 @@ const asteroidSlice = createSlice({
         state.loading = false;
       })
       .addCase(fetchAsteroidsByDate.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'An unknown error occurred';
+      })
+      .addCase(searchSpecificAsteroid.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(searchSpecificAsteroid.fulfilled, (state, action) => {
+        state.asteroid = action.payload;
+      })
+      .addCase(searchSpecificAsteroid.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'An unknown error occurred';
       });

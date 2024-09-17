@@ -2,6 +2,7 @@ import { ITitleTableAsteroids } from './interfaces';
 
 export enum ROUTES_LIST {
   asteroids = '/asteroids',
+  search = '/search',
 }
 
 export const TITLE_TABLE_ASTEROIDS: ITitleTableAsteroids[] = [

@@ -43,7 +43,7 @@ const AsteroidData: FC = () => {
   const countPages: number = Object.keys(listAllAsteroids).length;
 
   useEffect(() => {
-    dispatch(fetchAsteroids());
+    // dispatch(fetchAsteroids());
   }, [dispatch]);
 
   useEffect(() => {
