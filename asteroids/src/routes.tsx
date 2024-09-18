@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import AsteroidData from './components/pages/AsteroidData';
-import SearchAsteroid from './components/InputSearchAsteroid';
+import SearchAsteroid from './components/pages/SearchAsteroid';
 import { ROUTES_LIST } from './constants';
 
 const router = createBrowserRouter([

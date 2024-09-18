@@ -12,5 +12,4 @@ export const getListAsteroidsByDate = (
 
 export const getSpecificAsteroid = (
   dataAsteroid: string,
-): Promise<AxiosResponse> => get(`/neo/2000719?`);
-// https://api.nasa.gov/neo/rest/v1/neo/2000719?api_key=DEMO_KEY
+): Promise<AxiosResponse> => get(`/neo/${dataAsteroid}`);
