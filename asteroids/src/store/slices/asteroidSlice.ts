@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Dayjs } from 'dayjs';
-import { nearEarthObjectsType, listDateType } from '../../types';
-import { IAsteroid } from '../../interfaces';
 import {
   getAllDataAboutAsteroids,
   getListAsteroidsByDate,
   getSpecificAsteroid,
 } from '../../services';
+import { ERRORS } from '../../constants';
+import { nearEarthObjectsType, listDateType } from '../../types';
+import { IAsteroid } from '../../interfaces';
 
 export const fetchAsteroids = createAsyncThunk<
   nearEarthObjectsType,
@@ -64,11 +65,12 @@ export const searchSpecificAsteroid = createAsyncThunk<
     try {
       const response: AxiosResponse<IAsteroid> =
         await getSpecificAsteroid(dataAsteroid);
-      console.log(response.data);
+
       return response.data;
     } catch (error: unknown) {
-      const axiosError = error as AxiosError<{ error_message: string }>;
-      const errorText = axiosError.response?.data?.error_message;
+      const axiosError = error as AxiosError<{ message: string }>;
+      const errorText =
+        axiosError.status === 404 ? ERRORS.search404 : axiosError.message;
 
       return rejectWithValue(errorText || 'An unknown error occurred');
     }

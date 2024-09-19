@@ -3,30 +3,13 @@ import { Typography, SelectChangeEvent, Box } from '@mui/material';
 import CustomAccordion from '../UI/CustomAccordion';
 import CustomSelector from '../UI/CustomSelector';
 import {
-  TITLE_TABLE_ASTEROIDS,
   RELATIVE_SPEED_UNITS,
   UNITS_MEASUREMENT_SLIP_DISTANCE,
 } from '../../constants';
-import { IAsteroid } from '../../interfaces';
+import { IAsteroid, IApproachData } from '../../interfaces';
 
 interface IApproachDataAccordion {
-  approachData: {
-    close_approach_date: string;
-    close_approach_date_full: string;
-    epoch_date_close_approach: number;
-    relative_velocity: {
-      kilometers_per_second: string;
-      kilometers_per_hour: string;
-      miles_per_hour: string;
-    };
-    miss_distance: {
-      astronomical: string;
-      lunar: string;
-      kilometers: string;
-      miles: string;
-    };
-    orbiting_body: string;
-  }[];
+  approachData: IApproachData[];
 }
 
 const ApproachDataAccordion: FC<IApproachDataAccordion> = ({
@@ -58,7 +41,7 @@ const ApproachDataAccordion: FC<IApproachDataAccordion> = ({
   return (
     <>
       {approachData.map((data, index) => (
-        <CustomAccordion title={data.orbiting_body}>
+        <CustomAccordion key={index} title={data.orbiting_body}>
           <Typography>
             Ближайшая дата сближения: {data.close_approach_date}
           </Typography>

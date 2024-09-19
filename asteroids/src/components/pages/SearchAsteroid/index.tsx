@@ -20,6 +20,7 @@ const SearchAsteroid: FC = () => {
   );
 
   const [dataAsteroid, setDataAsteroid] = useState<string>('');
+  const [validError, setValidError] = useState<string>('');
 
   const handleTextFieldSearch = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -28,8 +29,13 @@ const SearchAsteroid: FC = () => {
   };
 
   const handleButtonSearch = () => {
+    if (!dataAsteroid.trim()) {
+      setValidError('Поле не должно быть пустым');
+      return;
+    }
+
     dispatch(searchSpecificAsteroid(dataAsteroid));
-    // console.log(getSpecificAsteroid(dataAsteroid));
+    setValidError('');
   };
 
   return (
@@ -39,8 +45,9 @@ const SearchAsteroid: FC = () => {
         <SearchInput
           handleTextFieldSearch={handleTextFieldSearch}
           handleButtonSearch={handleButtonSearch}
+          validError={validError}
         />
-        {asteroid && (
+        {asteroid && !error ? (
           <>
             <TableAsteroid asteroid={asteroid} />
             <OrbitalDataAccordion orbitalData={asteroid.orbital_data} />
@@ -51,6 +58,10 @@ const SearchAsteroid: FC = () => {
               approachData={asteroid.close_approach_data}
             />
           </>
+        ) : (
+          <Typography sx={{ textAlign: 'center', marginTop: '120px' }}>
+            {error}
+          </Typography>
         )}
       </StyledSearchAsteroid>
     </>

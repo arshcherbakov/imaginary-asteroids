@@ -1,5 +1,23 @@
 import { Dayjs } from 'dayjs';
 
+interface IApproachData {
+  close_approach_date: string;
+  close_approach_date_full: string;
+  epoch_date_close_approach: number;
+  relative_velocity: {
+    kilometers_per_second: string;
+    kilometers_per_hour: string;
+    miles_per_hour: string;
+  };
+  miss_distance: {
+    astronomical: string;
+    lunar: string;
+    kilometers: string;
+    miles: string;
+  };
+  orbiting_body: string;
+}
+
 interface IAsteroid {
   links: {
     self: string;
@@ -28,23 +46,7 @@ interface IAsteroid {
     };
   };
   is_potentially_hazardous_asteroid: boolean;
-  close_approach_data: Array<{
-    close_approach_date: string;
-    close_approach_date_full: string;
-    epoch_date_close_approach: number;
-    relative_velocity: {
-      kilometers_per_second: string;
-      kilometers_per_hour: string;
-      miles_per_hour: string;
-    };
-    miss_distance: {
-      astronomical: string;
-      lunar: string;
-      kilometers: string;
-      miles: string;
-    };
-    orbiting_body: string;
-  }>;
+  close_approach_data: Array<IApproachData>;
   is_sentry_object: boolean;
   orbital_data: IOrbitalData;
 }
@@ -91,4 +93,11 @@ interface IOrbitalData {
   orbit_class: IOrbitClass; // Класс орбиты
 }
 
-export type { IAsteroid, ITitleTableAsteroids, IDateSearch, IOrbitalData };
+export type {
+  IAsteroid,
+  IApproachData,
+  ITitleTableAsteroids,
+  IDateSearch,
+  IOrbitalData,
+  IOrbitClass,
+};

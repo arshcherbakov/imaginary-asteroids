@@ -10,6 +10,7 @@ import {
 const SearchInput: React.FC<ISearchInputProps> = ({
   handleTextFieldSearch,
   handleButtonSearch,
+  validError,
 }) => {
   const theme = useTheme();
 
@@ -17,15 +18,18 @@ const SearchInput: React.FC<ISearchInputProps> = ({
     <StyledSearchAsteroidWrapper>
       <StyledSearchContainer>
         <StyledSearchAsteroidInput
+          error={!!validError}
           id="outlined-basic"
           label="Поиск астероида"
           variant="outlined"
           onChange={handleTextFieldSearch}
           sx={styleDateInput(theme)}
+          helperText={validError}
         />
         <Button
           onClick={handleButtonSearch}
           sx={{
+            height: '56px',
             color: theme.palette.primary.contrastText,
             background: theme.palette.tertiary.main,
           }}

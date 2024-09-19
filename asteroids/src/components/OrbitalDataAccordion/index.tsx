@@ -1,29 +1,33 @@
-import { useState, FC } from 'react';
+import { FC } from 'react';
 import { Typography } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CustomAccordion from '../UI/CustomAccordion';
-import { IOrbitalData } from '../../interfaces';
+import { ORBITAL_DATA_TITLE } from '../../constants';
+import { IOrbitalData, IOrbitClass } from '../../interfaces';
 
 interface IOrbitalDataAccordion {
   orbitalData: IOrbitalData;
 }
 
 const OrbitalDataAccordion: FC<IOrbitalDataAccordion> = ({ orbitalData }) => {
-  console.log(Object.keys(orbitalData));
   const orbitalDataKeys = Object.keys(orbitalData) as Array<keyof IOrbitalData>;
+  const orbitalClassKeys = Object.keys(orbitalData.orbit_class) as Array<
+    keyof IOrbitClass
+  >;
 
   return (
     <CustomAccordion title="Орбитальные данные">
       {orbitalDataKeys.map((field, index) =>
-        index !== 22 ? (
-          <Typography>
-            {' '}
-            Дата определения орбиты: {orbitalData[field] as string}
+        typeof orbitalData[field] !== 'object' ? (
+          <Typography key={index}>
+            {ORBITAL_DATA_TITLE[index]}: {orbitalData[field] as string}
           </Typography>
         ) : (
-          <Typography>
-            {/* Дата определения орбиты: {orbitalData[field].orbit_class} */}
-          </Typography>
+          orbitalClassKeys.map((orbitClassKey, orbitIndex) => (
+            <Typography key={orbitIndex}>
+              {ORBITAL_DATA_TITLE[index + orbitIndex]}:{' '}
+              {orbitalData.orbit_class[orbitClassKey]}
+            </Typography>
+          ))
         ),
       )}
     </CustomAccordion>
