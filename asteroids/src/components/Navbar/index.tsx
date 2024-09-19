@@ -19,10 +19,13 @@ import {
 
 interface INavbarProps {
   window?: () => Window;
-  handleShowDatePicker: () => void;
+  handleShowDatePicker?: () => void;
 }
 
-const Navbar: React.FC<INavbarProps> = ({ window, handleShowDatePicker }) => {
+const Navbar: React.FC<INavbarProps> = ({
+  window,
+  handleShowDatePicker = () => {},
+}) => {
   const theme = useTheme();
 
   const [mobileOpen, setMobileOpen] = useState(false);

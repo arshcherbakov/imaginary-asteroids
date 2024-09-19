@@ -1,44 +1,25 @@
 import { useState, FC } from 'react';
-import {
-  useTheme,
-  Box,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Typography,
-  Grow,
-} from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Grid from '@mui/material/Grid2';
+import { useTheme, Box, Typography } from '@mui/material';
+import SearchInput from '../../SearchInput';
 import OrbitalDataAccordion from '../../OrbitalDataAccordion';
 import TableAsteroid from '../../TableAsteroid';
-import CardAsteroid from '../../CardAsteroid';
+import ApproachDataAccordion from '../../ApproachDataAccordion';
+import Navbar from '../../Navbar';
 import useAppDispatch from '../../../hooks/useAppDispatch';
 import useAppSelector from '../../../hooks/useAppSelector';
 import { searchSpecificAsteroid } from '../../../store/slices/asteroidSlice';
 import { RootState } from '../../../store';
-import { getSpecificAsteroid } from '../../../services';
-import { TITLE_TABLE_ASTEROIDS, DIAMETER_SIZES } from '../../../constants';
-import {
-  StyledSearchAsteroid,
-  StyledSearchAsteroidWrapper,
-  StyledSearchAsteroidInput,
-  StyledSearchAsteroidButton,
-  StyledWrapperContainer,
-  StyledContainerCard,
-} from './style';
+import { StyledSearchAsteroid } from './style';
 
 const SearchAsteroid: FC = () => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
 
-  const { asteroid, error, loading } = useAppSelector(
+  const { asteroid, error } = useAppSelector(
     (state: RootState) => state.asteroids,
   );
 
   const [dataAsteroid, setDataAsteroid] = useState<string>('');
-
-  const [checked, setChecked] = useState(false);
 
   const handleTextFieldSearch = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -52,54 +33,27 @@ const SearchAsteroid: FC = () => {
   };
 
   return (
-    <StyledSearchAsteroid>
-      <StyledSearchAsteroidWrapper>
-        <Box
-          sx={{
-            width: '30%',
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
-        >
-          <StyledSearchAsteroidInput
-            id="outlined-basic"
-            label="Outlined"
-            variant="outlined"
-            onChange={handleTextFieldSearch}
-          />
-          <StyledSearchAsteroidButton
-            onClick={handleButtonSearch}
-            sx={{ background: theme.palette.primary.light }}
-          >
-            Искать
-          </StyledSearchAsteroidButton>
-        </Box>
-      </StyledSearchAsteroidWrapper>
-      {asteroid && !loading && (
-        <Grow in={!loading} {...(loading ? { timeout: 1000 } : {})}>
+    <>
+      <Navbar />
+      <StyledSearchAsteroid>
+        <SearchInput
+          handleTextFieldSearch={handleTextFieldSearch}
+          handleButtonSearch={handleButtonSearch}
+        />
+        {asteroid && (
           <>
             <TableAsteroid asteroid={asteroid} />
             <OrbitalDataAccordion orbitalData={asteroid.orbital_data} />
             <Typography sx={{ marginTop: 5 }}>
-              данные близкого сближения
+              Данные близкого сближения
             </Typography>
+            <ApproachDataAccordion
+              approachData={asteroid.close_approach_data}
+            />
           </>
-        </Grow>
-      )}
-      {/* <StyledWrapperContainer
-        container
-        spacing={1}
-        justifyContent="center"
-        alignItems="center"
-        columns={12}
-      >
-        {asteroid?.close_approach_data.map(approachDate => (
-          <StyledContainerCard size={3}>
-            <CardAsteroid approachData={approachDate} />
-          </StyledContainerCard>
-        ))}
-      </StyledWrapperContainer> */}
-    </StyledSearchAsteroid>
+        )}
+      </StyledSearchAsteroid>
+    </>
   );
 };
 

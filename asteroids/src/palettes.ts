@@ -1,26 +1,54 @@
-import { PaletteMode } from "@mui/material/styles";
+import { PaletteMode } from '@mui/material/styles';
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    tertiary: Palette['primary'];
+    border: {
+      main: string; // Определяем тип для border, так как его нет в стандартной палитре
+    };
+  }
+
+  interface PaletteOptions {
+    tertiary?: PaletteOptions['primary'];
+    border?: {
+      main: string; // Опции для кастомного поля border
+    };
+  }
+}
 
 const darkPalette = {
-  mode: "dark" as PaletteMode,
+  mode: 'dark' as PaletteMode,
   primary: {
-    main: "#000",
-    light: "#121212",
-    contrastText: "#fff",
+    main: '#000',
+    light: '#121212',
+    contrastText: '#fff',
   },
   secondary: {
-    main: "#fff",
+    main: '#fff',
+  },
+  tertiary: {
+    main: '#767272',
+  },
+  border: {
+    main: '#e5e5e5',
   },
 };
 
 const lightPalette = {
-  mode: "light" as PaletteMode,
+  mode: 'light' as PaletteMode,
   primary: {
-    main: "#fff",
-    light: "#e5e5e5",
-    contrastText: "#000",
+    main: '#fff',
+    light: '#e5e5e5',
+    contrastText: '#000',
   },
   secondary: {
-    main: "#cdcdcd",
+    main: '#cdcdcd',
+  },
+  tertiary: {
+    main: '#e5e5e5',
+  },
+  border: {
+    main: '#fff',
   },
 };
 
