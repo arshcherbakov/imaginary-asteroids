@@ -62,35 +62,35 @@ interface IDateSearch {
 }
 
 interface IOrbitClass {
-  orbit_class_type: string; // Тип орбиты (например, AMO)
-  orbit_class_description: string; // Описание типа орбиты
-  orbit_class_range: string; // Диапазон перигелия
+  orbit_class_type: string;
+  orbit_class_description: string;
+  orbit_class_range: string;
 }
 
 interface IOrbitalData {
-  orbit_id: string; // Идентификатор орбиты
-  orbit_determination_date: string; // Дата определения орбиты
-  first_observation_date: string; // Дата первого наблюдения
-  last_observation_date: string; // Дата последнего наблюдения
-  data_arc_in_days: number; // Количество дней наблюдений
-  observations_used: number; // Количество использованных наблюдений
-  orbit_uncertainty: string; // Неопределенность орбиты
-  minimum_orbit_intersection: string; // Минимальное расстояние пересечения орбит
-  jupiter_tisserand_invariant: string; // Инвариант Тиссерана по Юпитеру
-  epoch_osculation: string; // Эпоха оскуляции
-  eccentricity: string; // Эксцентриситет орбиты
-  semi_major_axis: string; // Большая полуось орбиты
-  inclination: string; // Наклонение орбиты
-  ascending_node_longitude: string; // Долгота восходящего узла
-  orbital_period: string; // Орбитальный период
-  perihelion_distance: string; // Перигелий
-  perihelion_argument: string; // Аргумент перигелия
-  aphelion_distance: string; // Апогелий
-  perihelion_time: string; // Время перигелия
-  mean_anomaly: string; // Средняя аномалия
-  mean_motion: string; // Среднее движение
-  equinox: string; // Равноденствие (эпоха J2000)
-  orbit_class: IOrbitClass; // Класс орбиты
+  orbit_id: string;
+  orbit_determination_date: string;
+  first_observation_date: string;
+  last_observation_date: string;
+  data_arc_in_days: number;
+  observations_used: number;
+  orbit_uncertainty: string;
+  minimum_orbit_intersection: string;
+  jupiter_tisserand_invariant: string;
+  epoch_osculation: string;
+  eccentricity: string;
+  semi_major_axis: string;
+  inclination: string;
+  ascending_node_longitude: string;
+  orbital_period: string;
+  perihelion_distance: string;
+  perihelion_argument: string;
+  aphelion_distance: string;
+  perihelion_time: string;
+  mean_anomaly: string;
+  mean_motion: string;
+  equinox: string;
+  orbit_class: IOrbitClass;
 }
 
 export type {

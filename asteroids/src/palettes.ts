@@ -4,14 +4,20 @@ declare module '@mui/material/styles' {
   interface Palette {
     tertiary: Palette['primary'];
     border: {
-      main: string; // Определяем тип для border, так как его нет в стандартной палитре
+      main: string;
+    };
+    loading: {
+      pending: string;
     };
   }
 
   interface PaletteOptions {
     tertiary?: PaletteOptions['primary'];
     border?: {
-      main: string; // Опции для кастомного поля border
+      main: string;
+    };
+    loading: {
+      pending: string;
     };
   }
 }
@@ -30,7 +36,10 @@ const darkPalette = {
     main: '#767272',
   },
   border: {
-    main: '#e5e5e5',
+    main: '#fff',
+  },
+  loading: {
+    pending: '#e5e5e5',
   },
 };
 
@@ -48,7 +57,10 @@ const lightPalette = {
     main: '#e5e5e5',
   },
   border: {
-    main: '#fff',
+    main: '#e5e5e5',
+  },
+  loading: {
+    pending: '#0b3d91',
   },
 };
 

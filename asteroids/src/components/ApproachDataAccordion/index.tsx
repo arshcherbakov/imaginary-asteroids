@@ -39,7 +39,7 @@ const ApproachDataAccordion: FC<IApproachDataAccordion> = ({
   };
 
   return (
-    <>
+    <Box marginTop="10px">
       {approachData.map((data, index) => (
         <CustomAccordion key={index} title={data.orbiting_body}>
           <Typography>
@@ -81,7 +81,7 @@ const ApproachDataAccordion: FC<IApproachDataAccordion> = ({
           </Box>
         </CustomAccordion>
       ))}
-    </>
+    </Box>
   );
 };
 

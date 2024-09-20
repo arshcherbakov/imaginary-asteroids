@@ -19,8 +19,9 @@ const StyledSearchAsteroidInput = styled(TextField)(() => ({
 
 const styleDateInput = (theme: Theme): SxProps<Theme> => ({
   '& .MuiOutlinedInput-root.Mui-focused fieldset': {
-    borderColor: theme.palette.primary.light,
+    borderColor: theme.palette.border.main,
   },
+
   '& .MuiInputLabel-root.Mui-focused': {
     color: theme.palette.primary.contrastText,
   },

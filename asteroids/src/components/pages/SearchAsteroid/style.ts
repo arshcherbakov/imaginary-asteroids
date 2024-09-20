@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import styled from 'styled-components';
 
 const StyledSearchAsteroid = styled(Box)(() => ({
@@ -6,4 +6,9 @@ const StyledSearchAsteroid = styled(Box)(() => ({
   flexDirection: 'column',
 }));
 
-export { StyledSearchAsteroid };
+const StyledSearchError = styled(Typography)(() => ({
+  textAlign: 'center',
+  marginTop: '120px',
+}));
+
+export { StyledSearchAsteroid, StyledSearchError };

@@ -1,18 +1,20 @@
-import { useState, FC } from 'react';
-import { useTheme, Box, Typography } from '@mui/material';
+import { useState, FC, Suspense, lazy } from 'react';
+import { Typography } from '@mui/material';
 import SearchInput from '../../SearchInput';
-import OrbitalDataAccordion from '../../OrbitalDataAccordion';
-import TableAsteroid from '../../TableAsteroid';
-import ApproachDataAccordion from '../../ApproachDataAccordion';
 import Navbar from '../../Navbar';
+import LoadingPage from '../../LoadingPage';
 import useAppDispatch from '../../../hooks/useAppDispatch';
 import useAppSelector from '../../../hooks/useAppSelector';
 import { searchSpecificAsteroid } from '../../../store/slices/asteroidSlice';
 import { RootState } from '../../../store';
-import { StyledSearchAsteroid } from './style';
+import { ERRORS } from '../../../constants';
+import { StyledSearchAsteroid, StyledSearchError } from './style';
+
+const TableAsteroid = lazy(() => import('../../TableAsteroid'));
+const OrbitalDataAccordion = lazy(() => import('../../OrbitalDataAccordion'));
+const ApproachDataAccordion = lazy(() => import('../../ApproachDataAccordion'));
 
 const SearchAsteroid: FC = () => {
-  const theme = useTheme();
   const dispatch = useAppDispatch();
 
   const { asteroid, error } = useAppSelector(
@@ -30,7 +32,7 @@ const SearchAsteroid: FC = () => {
 
   const handleButtonSearch = () => {
     if (!dataAsteroid.trim()) {
-      setValidError('Поле не должно быть пустым');
+      setValidError(ERRORS.emptyField);
       return;
     }
 
@@ -48,20 +50,20 @@ const SearchAsteroid: FC = () => {
           validError={validError}
         />
         {asteroid && !error ? (
-          <>
-            <TableAsteroid asteroid={asteroid} />
-            <OrbitalDataAccordion orbitalData={asteroid.orbital_data} />
-            <Typography sx={{ marginTop: 5 }}>
-              Данные близкого сближения
-            </Typography>
-            <ApproachDataAccordion
-              approachData={asteroid.close_approach_data}
-            />
-          </>
+          <Suspense fallback={<LoadingPage />}>
+            <>
+              <TableAsteroid asteroid={asteroid} />
+              <OrbitalDataAccordion orbitalData={asteroid.orbital_data} />
+              <Typography sx={{ marginTop: 5 }}>
+                Данные близкого сближения
+              </Typography>
+              <ApproachDataAccordion
+                approachData={asteroid.close_approach_data}
+              />
+            </>
+          </Suspense>
         ) : (
-          <Typography sx={{ textAlign: 'center', marginTop: '120px' }}>
-            {error}
-          </Typography>
+          <StyledSearchError>{error}</StyledSearchError>
         )}
       </StyledSearchAsteroid>
     </>

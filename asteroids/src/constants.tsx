@@ -98,6 +98,7 @@ export enum ERRORS {
   missingEndDateField = 'Отсутствует поле конечной даты.',
   dateDifference = 'Разница не больше 7 дней.',
   search404 = 'По вашему запросу не чего ненашлось (',
+  emptyField = 'Поле не должно быть пустым',
 }
 
 export const DATE_DIFFERENCE = 7;
