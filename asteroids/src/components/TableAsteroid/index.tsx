@@ -1,4 +1,4 @@
-import { useState, Fragment, FC } from 'react';
+import { useState, FC } from 'react';
 import {
   TableBody,
   TableHead,
@@ -59,7 +59,7 @@ const TableAsteroid: FC<ITableAsteroid> = ({ asteroid }) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        <Fragment key={asteroid?.id}>
+        <TableRow key={asteroid?.id}>
           {TITLE_TABLE_ASTEROIDS.slice(0, 3).map((title, index) => (
             <TableCell key={index} component="th" scope="row" align="center">
               {index === 0 && (
@@ -97,7 +97,7 @@ const TableAsteroid: FC<ITableAsteroid> = ({ asteroid }) => {
           <TableCell component="th" scope="row" align="center">
             {convertBooleanToAnswer(asteroid?.is_sentry_object || false)}
           </TableCell>
-        </Fragment>
+        </TableRow>
       </TableBody>
     </Table>
   );

@@ -130,3 +130,6 @@ export const ORBITAL_DATA_TITLE = [
   'Описание типа орбиты',
   'Диапазон перигелия',
 ];
+
+export const DEFAULT_UNIT_OF_SPEED = 'kilometers_per_second';
+export const DEFAULT_UNIT_OF_MISS_DISTANCE = 'astronomical';

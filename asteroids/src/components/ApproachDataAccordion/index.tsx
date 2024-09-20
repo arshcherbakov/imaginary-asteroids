@@ -5,6 +5,8 @@ import CustomSelector from '../UI/CustomSelector';
 import {
   RELATIVE_SPEED_UNITS,
   UNITS_MEASUREMENT_SLIP_DISTANCE,
+  DEFAULT_UNIT_OF_SPEED,
+  DEFAULT_UNIT_OF_MISS_DISTANCE,
 } from '../../constants';
 import { IAsteroid, IApproachData } from '../../interfaces';
 
@@ -15,27 +17,31 @@ interface IApproachDataAccordion {
 const ApproachDataAccordion: FC<IApproachDataAccordion> = ({
   approachData,
 }) => {
-  const [unitsOfSpeed, setUnitsOfSpeed] = useState<
-    keyof IAsteroid['close_approach_data'][0]['relative_velocity']
-  >('kilometers_per_second');
+  const [unitsOfSpeed, setUnitsOfSpeed] = useState<Record<string, string>>({});
+  const [unitsOfMissDistance, setUnitsOfMissDistance] = useState<
+    Record<string, string>
+  >({});
 
-  const [unitsOfMissDistance, setUnitsOfMissDistance] =
-    useState<keyof IAsteroid['close_approach_data'][0]['miss_distance']>(
-      'astronomical',
-    );
-
-  const handleUnitsOfSpeed = (event: SelectChangeEvent<unknown>) => {
-    setUnitsOfSpeed(
-      event.target
+  const handleUnitsOfSpeed = (
+    event: SelectChangeEvent<unknown>,
+    id: number,
+  ) => {
+    setUnitsOfSpeed({
+      ...unitsOfSpeed,
+      [id.toString()]: event.target
         .value as keyof IAsteroid['close_approach_data'][0]['relative_velocity'],
-    );
+    });
   };
 
-  const handleUnitsOfMissDistance = (event: SelectChangeEvent<unknown>) => {
-    setUnitsOfMissDistance(
-      event.target
+  const handleUnitsOfMissDistance = (
+    event: SelectChangeEvent<unknown>,
+    id: number,
+  ) => {
+    setUnitsOfMissDistance({
+      ...unitsOfMissDistance,
+      [id.toString()]: event.target
         .value as keyof IAsteroid['close_approach_data'][0]['miss_distance'],
-    );
+    });
   };
 
   return (
@@ -55,13 +61,16 @@ const ApproachDataAccordion: FC<IApproachDataAccordion> = ({
             Относительная скорость:
             {
               data.relative_velocity[
-                unitsOfSpeed as keyof IAsteroid['close_approach_data'][0]['relative_velocity']
-              ] as string
+                (unitsOfSpeed[
+                  index
+                ] as keyof IAsteroid['close_approach_data'][0]['relative_velocity']) ||
+                  DEFAULT_UNIT_OF_SPEED
+              ]
             }
             <CustomSelector
-              selelctorValue={unitsOfSpeed}
+              selelctorValue={unitsOfSpeed[index] || DEFAULT_UNIT_OF_SPEED}
               dataList={RELATIVE_SPEED_UNITS}
-              handleSelector={handleUnitsOfSpeed}
+              handleSelector={event => handleUnitsOfSpeed(event, index)}
               styleSelector={{ marginLeft: '10px' }}
             />
           </Box>
@@ -69,13 +78,18 @@ const ApproachDataAccordion: FC<IApproachDataAccordion> = ({
             Расстояние промаха:
             {
               data.miss_distance[
-                unitsOfMissDistance as keyof IAsteroid['close_approach_data'][0]['miss_distance']
+                (unitsOfMissDistance[
+                  index
+                ] as keyof IAsteroid['close_approach_data'][0]['miss_distance']) ||
+                  DEFAULT_UNIT_OF_MISS_DISTANCE
               ] as string
             }
             <CustomSelector
-              selelctorValue={unitsOfMissDistance}
+              selelctorValue={
+                unitsOfMissDistance[index] || DEFAULT_UNIT_OF_MISS_DISTANCE
+              }
               dataList={UNITS_MEASUREMENT_SLIP_DISTANCE}
-              handleSelector={handleUnitsOfMissDistance}
+              handleSelector={event => handleUnitsOfMissDistance(event, index)}
               styleSelector={{ marginLeft: '10px' }}
             />
           </Box>
