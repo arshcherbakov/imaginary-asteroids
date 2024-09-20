@@ -97,7 +97,7 @@ export enum ERRORS {
   missingStartDateField = 'Отсутствует поле начальной даты.',
   missingEndDateField = 'Отсутствует поле конечной даты.',
   dateDifference = 'Разница не больше 7 дней.',
-  search404 = 'По вашему запросу не чего ненашлось (',
+  search404 = 'По вашему запросу ничего не нашлось (',
   emptyField = 'Поле не должно быть пустым',
 }
 
