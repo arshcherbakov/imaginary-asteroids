@@ -9,3 +9,7 @@ export const getListAsteroidsByDate = (
   endDate: string,
 ): Promise<AxiosResponse> =>
   get(`/feed?start_date=${startDate}&end_date=${endDate}`);
+
+export const getSpecificAsteroid = (
+  dataAsteroid: string,
+): Promise<AxiosResponse> => get(`/neo/${dataAsteroid}`);

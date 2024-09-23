@@ -1,12 +1,14 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError, AxiosResponse } from 'axios';
 import { Dayjs } from 'dayjs';
-import { nearEarthObjectsType, listDateType } from '../../types';
-import { IAsteroid } from '../../interfaces';
 import {
   getAllDataAboutAsteroids,
   getListAsteroidsByDate,
+  getSpecificAsteroid,
 } from '../../services';
+import { ERRORS } from '../../constants';
+import { nearEarthObjectsType, listDateType } from '../../types';
+import { IAsteroid } from '../../interfaces';
 
 export const fetchAsteroids = createAsyncThunk<
   nearEarthObjectsType,
@@ -53,11 +55,34 @@ export const fetchAsteroidsByDate = createAsyncThunk<
   },
 );
 
+export const searchSpecificAsteroid = createAsyncThunk<
+  IAsteroid,
+  string,
+  { rejectValue: string }
+>(
+  'asteroids/searchSpecificAsteroid ',
+  async (dataAsteroid, { rejectWithValue }) => {
+    try {
+      const response: AxiosResponse<IAsteroid> =
+        await getSpecificAsteroid(dataAsteroid);
+
+      return response.data;
+    } catch (error: unknown) {
+      const axiosError = error as AxiosError<{ message: string }>;
+      const errorText =
+        axiosError.status === 404 ? ERRORS.search404 : axiosError.message;
+
+      return rejectWithValue(errorText || 'An unknown error occurred');
+    }
+  },
+);
+
 type ListDateType = Record<string, IAsteroid[]>;
 
 interface AsteroidState {
   listAllAsteroids: ListDateType;
   listAsteroids: IAsteroid[];
+  asteroid: IAsteroid | null;
   error: string | null;
   loading: boolean;
 }
@@ -65,6 +90,7 @@ interface AsteroidState {
 const initialState: AsteroidState = {
   listAllAsteroids: {},
   listAsteroids: [],
+  asteroid: null,
   error: null,
   loading: false,
 };
@@ -111,6 +137,17 @@ const asteroidSlice = createSlice({
         state.loading = false;
       })
       .addCase(fetchAsteroidsByDate.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload || 'An unknown error occurred';
+      })
+      .addCase(searchSpecificAsteroid.pending, state => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(searchSpecificAsteroid.fulfilled, (state, action) => {
+        state.asteroid = action.payload;
+      })
+      .addCase(searchSpecificAsteroid.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload || 'An unknown error occurred';
       });
