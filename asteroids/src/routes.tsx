@@ -13,20 +13,5 @@ const router = createBrowserRouter([
     element: <SearchAsteroid />,
   },
 ]);
-/*const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <DefaultLayout />,
-    children: [
-      {
-        path: ROUTES_LIST.asteroids,
-        element: <AsteroidData />,
-      },
-      {
-        path: ROUTES_LIST.search,
-        element: <SearchAsteroid />,
-      },
-    ],
-  },
-]);*/
+
 export default router;
