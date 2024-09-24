@@ -1,13 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
-import type { Preview } from '@storybook/react';
-import { ThemeProvider } from '@mui/material/styles';
-import { themes } from '@storybook/theming';
+import React from 'react';
 import { Box } from '@mui/material';
-import { Context } from '../src/context/context';
-import { lightPalette, darkPalette } from '../src/palettes';
-import ThemeContextProvider from '../src/providers/ThemeContext';
-
-import { createTheme } from '@mui/material/styles';
+import type { Preview } from '@storybook/react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { themes } from '@storybook/theming';
 import getPalette from '../src/helpers/get-palette';
 
 const preview: Preview = {
@@ -21,27 +16,22 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const [mode, setMode] = useState<string>(context.globals.theme);
-      const theme = createTheme(getPalette(mode));
+      const theme = context.globals.theme || 'dark';
+      const storyTheme = createTheme(getPalette(theme));
 
-      // useContext может быть вызван только внутри компонента-потомка провайдера контекста
-      // Нельзя напрямую использовать useContext здесь
-      // Вместо этого мы используем ThemeContextProvider для оборачивания компонентов
       return (
-        <ThemeContextProvider>
-          <ThemeProvider theme={theme}>
-            <Box
-              sx={{
-                height: '100vh',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <Story />
-            </Box>
-          </ThemeProvider>
-        </ThemeContextProvider>
+        <ThemeProvider theme={storyTheme}>
+          <Box
+            sx={{
+              height: '100vh',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Story />
+          </Box>
+        </ThemeProvider>
       );
     },
   ],
@@ -58,7 +48,7 @@ export const parameters = {
     ],
   },
   docs: {
-    theme: themes.light, // По умолчанию светлая тема
+    theme: themes.light,
   },
 };
 
