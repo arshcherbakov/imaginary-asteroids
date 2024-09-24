@@ -27,6 +27,7 @@ const preview: Preview = {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              background: theme === 'dark' ? '#000' : '#fff',
             }}
           >
             <Story />
