@@ -8,12 +8,9 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ICustomAccordionProps from './interface';
 
-interface ICustomAccordion {
-  title: string;
-}
-
-const CustomAccordion: React.FC<PropsWithChildren<ICustomAccordion>> = ({
+const CustomAccordion: React.FC<PropsWithChildren<ICustomAccordionProps>> = ({
   children,
   title,
 }) => {

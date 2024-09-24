@@ -1,14 +1,14 @@
-import { PropsWithChildren, useState } from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Context } from "../context/context";
-import getPalette from "../helpers/get-palette";
+import { PropsWithChildren, useState } from 'react';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Context } from '../context/context';
+import getPalette from '../helpers/get-palette';
 
 const ThemeContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [mode, setModes] = useState<string>("light");
+  const [mode, setModes] = useState<string>('light');
   const theme = createTheme(getPalette(mode));
 
   const toggleMode = () => {
-    setModes(mode === "dark" ? "light" : "dark");
+    setModes(mode === 'dark' ? 'light' : 'dark');
   };
 
   return (

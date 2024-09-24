@@ -1,49 +1,32 @@
-import { useState } from 'react';
-import { SelectChangeEvent, Box } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material';
 import { Meta, StoryFn } from '@storybook/react';
-import CustomSelector from '.';
+import { useArgs } from '@storybook/client-api';
+import { action } from '@storybook/addon-actions';
+import Selector from '.';
+import { DIAMETER_SIZES } from '../../../constants';
 import ICustomSelectorProps from './interface';
 
-const listForSelector = {
-  kilometers: 'Километры',
-  meters: 'Метры',
-  miles: 'Мили',
-  feet: 'Фут',
+const StoryMeta: Meta = {
+  title: 'UI/CustomSelector',
+  component: Selector,
 };
 
-export default {
-  title: 'UI/CustomSelector',
-  component: CustomSelector,
-} as Meta<typeof CustomSelector>;
-
-const Template: StoryFn<ICustomSelectorProps> = args => {
-  const [selelctorValue, setSelectorValue] = useState('kilometers');
+export const CustomSelector: StoryFn<ICustomSelectorProps> = args => {
+  const [argsSelector, setArgsSelector] = useArgs();
 
   const handleSelector = (event: SelectChangeEvent<unknown>) => {
-    const newValue = event.target.value as keyof typeof listForSelector;
-    setSelectorValue(newValue);
+    const newValue = event.target.value as keyof typeof DIAMETER_SIZES;
+
+    setArgsSelector({ ...argsSelector, selelctorValue: newValue });
+    action('handleSelector')(newValue);
   };
 
-  return (
-    <Box
-      sx={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <CustomSelector
-        {...args}
-        selelctorValue={selelctorValue}
-        handleSelector={handleSelector}
-      />
-    </Box>
-  );
+  return <Selector {...args} handleSelector={handleSelector} />;
 };
 
-export const Default = Template.bind({});
-Default.args = {
-  dataList: listForSelector,
-  handleSelector: (event: SelectChangeEvent<unknown>) => {},
+CustomSelector.args = {
+  selelctorValue: 'kilometers',
+  dataList: DIAMETER_SIZES,
 };
+
+export default StoryMeta;
