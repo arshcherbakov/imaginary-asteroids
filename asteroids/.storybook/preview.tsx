@@ -27,7 +27,7 @@ const preview: Preview = {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              background: theme === 'dark' ? '#000' : '#fff',
+              background: storyTheme.palette.background.default,
             }}
           >
             <Story />
@@ -37,8 +37,6 @@ const preview: Preview = {
     },
   ],
 };
-
-export default preview;
 
 export const parameters = {
   backgrounds: {
@@ -67,3 +65,5 @@ export const globalTypes = {
     },
   },
 };
+
+export default preview;
