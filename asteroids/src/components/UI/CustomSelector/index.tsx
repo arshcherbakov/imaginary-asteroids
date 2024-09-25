@@ -1,6 +1,6 @@
-import { MenuItem } from "@mui/material";
-import ICustomSelectorProps from "./interface";
-import { StyledSelector } from "./style";
+import { MenuItem } from '@mui/material';
+import ICustomSelectorProps from './interface';
+import { StyledSelector } from './style';
 
 const CustomSelector = ({
   dataList,

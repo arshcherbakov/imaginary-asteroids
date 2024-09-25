@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren } from 'react';
 import {
   Box,
   TableBody,
@@ -8,17 +8,24 @@ import {
   TableCell,
   Collapse,
   Table,
-} from "@mui/material";
-import { ITitleTableAsteroids } from "../../../interfaces";
-import ICustomPopupTable from "./interface";
+  useTheme,
+} from '@mui/material';
+import { ITitleTableAsteroids } from '../../../interfaces';
+import ICustomPopupTable from './interface';
 
 const CustomPopupTable: FC<
   PropsWithChildren<ICustomPopupTable<ITitleTableAsteroids>>
 > = ({ children, listTitlesTable, titleTable, open }) => {
+  const theme = useTheme();
+
   return (
     <Collapse in={open} timeout="auto" unmountOnExit>
       <Box sx={{ margin: 1 }}>
-        <Typography variant="h6" gutterBottom component="div">
+        <Typography
+          variant="h6"
+          gutterBottom
+          sx={{ color: theme.palette.primary.contrastText }}
+        >
           {titleTable}
         </Typography>
         <Table size="small" aria-label="purchases">
