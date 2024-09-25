@@ -71,26 +71,3 @@ describe('component DateInputs', () => {
     render(<RenderDateInputs />);
   });
 });
-
-// test('component DateInputs', () => {
-//   render(
-//     <LocalizationProvider dateAdapter={AdapterDayjs}>
-//       <ThemeProvider theme={theme}>
-//         <DateInputs
-//           handleSetDate={mockHandleSetDate}
-//           dateSearch={mockDateSearch}
-//           handleSearchByDate={mockHandleSearchByDate}
-//           errorValidate=""
-//         />
-//       </ThemeProvider>
-//     </LocalizationProvider>,
-//   );
-
-//   const labelDateStart = screen.getByLabelText(
-//     /Дата окончания поиска астероидов/i,
-//   );
-//   const labelDateEnd = screen.getByLabelText(/Дата начала поиска астероидов/i);
-
-//   expect(labelDateStart).toBeInTheDocument();
-//   expect(labelDateEnd).toBeInTheDocument();
-// });
