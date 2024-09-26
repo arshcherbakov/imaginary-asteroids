@@ -2,19 +2,19 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, screen, fireEvent } from '@testing-library/react';
 import CustomAccordion from '.';
 
-const mockContenAccordion = 'Accordion Content';
-const mockTitleAccordion = 'Title table';
+const mockContenAccordion: string = 'Accordion Content';
+const mockTitleAccordion: string = 'Title table';
 
-const renderCustomAccordion = (title: string) =>
+const renderCustomAccordion = () =>
   render(
-    <CustomAccordion title={title}>
+    <CustomAccordion title={mockTitleAccordion}>
       <p>{mockContenAccordion}</p>
     </CustomAccordion>,
   );
 
 describe('component CustomAccordion', () => {
   it('Отображение заголовка', () => {
-    renderCustomAccordion('Title table');
+    renderCustomAccordion();
 
     const titleAccord = screen.getByText(mockTitleAccordion);
 
@@ -22,7 +22,7 @@ describe('component CustomAccordion', () => {
   });
 
   it('Отображение контента после нажатия', () => {
-    renderCustomAccordion(mockTitleAccordion);
+    renderCustomAccordion();
     const accordionSummary = screen.getByText(mockTitleAccordion);
     const accordionContent = screen.queryByText(mockContenAccordion);
 
@@ -34,9 +34,8 @@ describe('component CustomAccordion', () => {
   });
 
   it('Скрытие контента после нажатия', () => {
-    renderCustomAccordion(mockTitleAccordion);
+    renderCustomAccordion();
     const accordionSummary = screen.getByText(mockTitleAccordion);
-    const accordionContent = screen.queryByText(mockContenAccordion);
 
     // Проверяем, что аккордеон изначально свернут
     const accordionElement = accordionSummary.closest('.MuiAccordion-root');
