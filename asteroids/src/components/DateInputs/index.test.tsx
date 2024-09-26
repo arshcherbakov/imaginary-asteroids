@@ -11,9 +11,14 @@ import { lightPalette } from '../../palettes';
 const mockHandleSetDate = jest.fn();
 const mockHandleSearchByDate = jest.fn();
 
-const mockDateSearch = {
-  startDate: null as Dayjs | null,
-  endDate: null as Dayjs | null,
+interface IMockDateSearch {
+  startDate: Dayjs | null;
+  endDate: Dayjs | null;
+}
+
+const mockDateSearch: IMockDateSearch = {
+  startDate: null,
+  endDate: null,
 };
 
 declare module '@mui/material/styles' {
