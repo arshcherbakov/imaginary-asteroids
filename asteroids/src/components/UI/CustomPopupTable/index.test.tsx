@@ -47,10 +47,9 @@ describe('component CustomPopupTable', () => {
     expect(titilePopupTable).not.toBeInTheDocument();
   });
 
-  it('renders table headers correctly', () => {
+  it('Отображение заголовок колонок', () => {
     renderCustomPopupTable(true);
 
-    // Проверяем, что заголовки колонок отображаются
     mockListTitlesTable.map(title => {
       expect(screen.getByText(title.titleTable)).toBeInTheDocument();
     });
