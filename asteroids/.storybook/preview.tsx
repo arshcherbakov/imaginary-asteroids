@@ -13,6 +13,7 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    layout: 'centered',
   },
   decorators: [
     (Story, context) => {
@@ -21,17 +22,7 @@ const preview: Preview = {
 
       return (
         <ThemeProvider theme={storyTheme}>
-          <Box
-            sx={{
-              height: '100vh',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              background: storyTheme.palette.background.default,
-            }}
-          >
-            <Story />
-          </Box>
+          <Story />
         </ThemeProvider>
       );
     },
